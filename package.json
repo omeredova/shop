@@ -7,8 +7,8 @@
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
-    "start": "webpack serve --config webpack/webpack.dev.js",
-    "build": "webpack --config webpack/webpack.prod.js",
+    "start": "webpack serve --config webpack/webpack.dev.cjs",
+    "build": "webpack --config webpack/webpack.prod.cjs",
     "prepare": "husky"
   },
   "keywords": [],

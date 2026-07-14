@@ -34,7 +34,7 @@ export default tseslint.config(
     },
     {
         files: [
-            'webpack/**/*.js',
+            'webpack/**/*.cjs',
             'src/index.tsx',
         ],
 
