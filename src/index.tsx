@@ -1,11 +1,21 @@
 import { createRoot } from 'react-dom/client';
-
-const App = () => {
-  return <h1>React Shop</h1>;
-};
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { App } from '@/app';
+import { store } from '@/app';
 
 const rootElement = document.getElementById('root');
 
-if (rootElement) {
-  createRoot(rootElement).render(<App />);
+if (!rootElement) {
+  throw new Error('Root element not found');
 }
+
+const root = createRoot(rootElement);
+
+root.render(
+  <Provider store = {store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
+);
