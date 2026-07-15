@@ -1,3 +1,11 @@
+import './App.css';
+import { Header } from '@/modules';
+
 export const App = () => {
-  return <h1>React Shop</h1>;
+
+  return (
+    <div className="container">
+        <Header/>
+    </div>
+  );
 };
