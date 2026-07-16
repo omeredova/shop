@@ -1,3 +1,10 @@
+.products {
+    margin: 50px 38px auto 48px;
+    display: grid;
+    grid-template-columns: 205px 1fr;
+    column-gap: 50px;
+}
+
 .products__container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

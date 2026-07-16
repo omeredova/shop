@@ -5,8 +5,8 @@ export const App = () => {
 
   return (
     <div className="container">
-        <Header/>
-        <Products/>
+      <Header/>
+      <Products/>
     </div>
   );
 };

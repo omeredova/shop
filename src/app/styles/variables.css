@@ -2,13 +2,19 @@
     --header-color: #E55A63;
     --header-txt: #FFFFFF;
     --header-search-bg: #FFFFFF4D;
-    --body-color: #e0dede;
+    --body-color: #e9e7e7;
     --route-color: #FF2D55;
     --route-active: #333333;
 
     --filter-background: #E2E2E4;
     --filter-text: #333333;
 
-    --radius: 20px;
+    --categories-title: #333333;
 
+    --radius: 20px;
+    --radius-sm: 16px;
+
+    --product-background: #FFFFFF;
+    --product-descr: #333333;
+    --product-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }

@@ -1,0 +1,7 @@
+
+
+.categories__title {
+    font-size: 12px;
+    color: var(--categories-title);
+    opacity: 50%;
+}
