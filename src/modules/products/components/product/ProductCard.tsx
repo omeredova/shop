@@ -1,8 +1,8 @@
 import './ProductCard.css';
-import { Product } from '@/modules/index';
+import { ProductResponse } from '@/modules/index';
 import StarIcon from '@/shared/assets/icons/star.svg';
 
-export const ProductCard = (props: Product) => {
+export const ProductCard = (props: ProductResponse) => {
 
     const { title, price, thumbnail, rating } = props
 

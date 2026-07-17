@@ -5,4 +5,4 @@ export { ProductCard } from './products/components/product/ProductCard';
 
 export { useGetProductsQuery } from './products/api/productsApi';
 
-export type { Product, ProductDetails, ProductsResponse } from './products/types';
+export type { ProductResponse, ProductDetails, ProductsResponse, Category, CategoriesResponse } from './products/types';

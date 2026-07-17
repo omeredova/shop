@@ -1,4 +1,4 @@
-export interface Product {
+export interface ProductResponse {
     id: number;
     title: string;
     price: number;
@@ -8,13 +8,20 @@ export interface Product {
     images?: string[];
 }
 
-export interface ProductDetails extends Product {
+export interface ProductDetails extends ProductResponse {
     description: string;
 }
 
 export interface ProductsResponse {
-    products: Product[];
+    products: ProductResponse[];
     total: number;
     skip: number;
     limit: number;
 }
+
+export interface Category {
+    name: string,
+    url?: string,
+}
+
+export type CategoriesResponse = Category[];

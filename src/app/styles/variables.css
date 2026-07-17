@@ -2,7 +2,7 @@
     --header-color: #E55A63;
     --header-txt: #FFFFFF;
     --header-search-bg: #FFFFFF4D;
-    --body-color: #e9e7e7;
+    --body-color: #fafafa;
     --route-color: #FF2D55;
     --route-active: #333333;
 
@@ -17,4 +17,6 @@
     --product-background: #FFFFFF;
     --product-descr: #333333;
     --product-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+
+    --accordion-border: #E6E6E6;
 }

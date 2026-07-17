@@ -1,12 +1,14 @@
 import './Products.css';
 import { useGetProductsQuery } from '@/modules/index';
-import { Product, Categories, ProductCard } from '@/modules/index';
+import { ProductResponse, Categories, ProductCard } from '@/modules/index';
+import { useGetCategoriesQuery } from './api/productsApi';
 
 export const Products = () => {
 
     const { data } = useGetProductsQuery();
+    const { data: categories } = useGetCategoriesQuery();
 
-    const productsData = data?.products.map(({id, thumbnail, title, price, rating}: Product) => (
+    const productsData = data?.products.map(({id, thumbnail, title, price, rating}: ProductResponse) => (
         <ProductCard
             thumbnail={thumbnail}
             title={title}
@@ -20,7 +22,9 @@ export const Products = () => {
     return(
         <section className='products'>
             <div className="products__categories">
-                <Categories/>
+                {categories && (
+                    <Categories categories={categories} />
+                )}
             </div>
             <div className='products__container'>
                 {data ? productsData : <h1>LOADING</h1>}
