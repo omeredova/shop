@@ -17,7 +17,7 @@ export const Header = () => {
 
             <div className="header__basket">
                 0
-                <Link className="header__cartIcon" to="/">
+                <Link className="header__cartIcon" to="/cart">
                     <CartIcon />
                 </Link>
             </div>

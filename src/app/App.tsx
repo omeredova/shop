@@ -1,12 +1,13 @@
 import './App.css';
-import { Header, Products } from '@/modules';
+import { Header } from '@/modules';
+import { ShopRouter } from '@/app';
 
 export const App = () => {
 
   return (
     <div className="container">
       <Header/>
-      <Products/>
+      <ShopRouter/>
     </div>
   );
 };

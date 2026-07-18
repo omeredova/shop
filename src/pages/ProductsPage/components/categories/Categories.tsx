@@ -1,5 +1,5 @@
 import './Categories.css';
-import { CategoriesResponse } from '@/modules/index';
+import { CategoriesResponse } from '@/pages/index';
 import { AccordionItem } from '@/shared/ui/index';
 import { useState } from 'react';
 

@@ -1,9 +1,9 @@
-import './Products.css';
-import { useGetProductsQuery } from '@/modules/index';
-import { ProductResponse, Categories, ProductCard } from '@/modules/index';
+import './ProductsPage.css';
+import { useGetProductsQuery } from '@/pages/index';
+import { ProductResponse, Categories, ProductCard } from '@/pages/index';
 import { useGetCategoriesQuery } from './api/productsApi';
 
-export const Products = () => {
+export const ProductsPage = () => {
 
     const { data } = useGetProductsQuery();
     const { data: categories } = useGetCategoriesQuery();
