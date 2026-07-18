@@ -1,0 +1,16 @@
+.accordion-item {
+    width: 100%;
+    color: var(--categories-title);
+}
+
+.accordionButton {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--accordion-border);
+}
+
+.last {
+    border-bottom: none;
+}
