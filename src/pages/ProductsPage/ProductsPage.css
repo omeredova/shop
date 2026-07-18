@@ -19,6 +19,13 @@
 }
 
 @media (max-width: 768px) {
+    .products__categories {
+        display: flex;
+        justify-content: center;
+    }
+    .products {
+        grid-template-columns: 1fr;
+    }
     .products__container{
         grid-template-columns: repeat(2, 1fr);
     }

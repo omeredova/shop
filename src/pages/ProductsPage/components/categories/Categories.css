@@ -1,7 +1,19 @@
-
+.categories__dropdown {
+    display: none;
+    align-self: center;
+}
 
 .categories__title {
     font-size: 12px;
     color: var(--categories-title);
     opacity: 50%;
+}
+
+@media (max-width: 768px) {
+    .categories {
+        display: none;
+    }
+    .categories__dropdown {
+        display: block;
+    }
 }

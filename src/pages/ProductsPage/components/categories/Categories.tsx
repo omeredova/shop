@@ -10,21 +10,32 @@ interface CategoriesProps {
 export const Categories = ( {categories}: CategoriesProps ) => {
 
     const [isSelected, setIsSelected] = useState(false)
+
     const handleClick = () => {
         setIsSelected(!isSelected);
     }
     
     return(
-        <div className='categories'>
-            <h3 className='categories__title'>Categories</h3>
-            {categories?.map((category, index) => 
-                <AccordionItem
-                    category={category.name}
-                    isSelected={isSelected}
-                    onSelect={handleClick}
-                    isLast={index === categories.length - 1}
-                />
-            )}
-        </div>
+        <>
+            <div className='categories'>
+                <h3 className='categories__title'>Categories</h3>
+                {categories?.map((category, index) => 
+                    <AccordionItem
+                        category={category.name}
+                        isSelected={isSelected}
+                        onSelect={handleClick}
+                        isLast={index === categories.length - 1}
+                    />
+                )}
+            </div>
+            <select className="categories__dropdown">
+                <option value="">Categories</option>
+                {categories?.map((category) => (
+                    <option key={category.slug} value={category.slug}>
+                        {category.name}
+                    </option>
+                ))}
+            </select>
+        </>
     )
 }
