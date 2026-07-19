@@ -1,14 +1,26 @@
 import './ProductsPage.css';
-import { useGetProductsQuery } from '@/pages/index';
+import { useGetProductsQuery, useGetCategoriesQuery, useGetProductsByCategoryQuery } from '@/pages/index';
 import { ProductResponse, Categories, ProductCard } from '@/pages/index';
-import { useGetCategoriesQuery } from './api/productsApi';
+import { useProductsFilter } from '@/shared';
 
 export const ProductsPage = () => {
 
-    const { data } = useGetProductsQuery();
+    const { category } = useProductsFilter();
     const { data: categories } = useGetCategoriesQuery();
 
-    const productsData = data?.products.map(({id, thumbnail, title, price, rating}: ProductResponse) => (
+    const { data: allProducts, isFetching: isAllProductsFetching } = useGetProductsQuery(undefined, {
+        skip: !!category
+    });
+    const { data: categoryProducts, isFetching: isCategoryFetching } = useGetProductsByCategoryQuery(category!,
+        {
+            skip: !category
+        }
+    )
+
+   const products = category ? categoryProducts : allProducts;
+   const isFetching = isCategoryFetching || isAllProductsFetching;
+    
+    const productsData = products?.products.map(({id, thumbnail, title, price, rating}: ProductResponse) => (
         <ProductCard
             thumbnail={thumbnail}
             title={title}
@@ -27,7 +39,9 @@ export const ProductsPage = () => {
                 )}
             </div>
             <div className='products__container'>
-                {data ? productsData : <h1>LOADING</h1>}
+                {isFetching ? (
+                    <h1>LOADING</h1>
+                ) : productsData }
             </div>
         </section>
     )
