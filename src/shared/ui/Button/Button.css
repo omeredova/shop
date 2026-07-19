@@ -1,0 +1,23 @@
+.button {
+    width: 40px;
+    height: 40px;
+    background-color: var(--header-color);
+    border: none;
+    border-radius: var(--radius-btn);
+    box-shadow: var(--product-shadow);
+    color: var(--header-txt);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.product__button{
+    background-color: var(--btn-background);
+    color: var(--header-color);
+}
+
+.product__button_add {
+    visibility: hidden;
+}

@@ -13,10 +13,13 @@
 
     --radius: 20px;
     --radius-sm: 16px;
+    --radius-btn: 9px;
 
     --product-background: #FFFFFF;
     --product-descr: #333333;
     --product-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+
+    --btn-background: #e55a6324;
 
     --accordion-border: #E6E6E6;
 }
