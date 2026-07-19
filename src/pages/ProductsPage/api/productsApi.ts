@@ -9,10 +9,14 @@ export const productsApi = baseApi.injectEndpoints({
         getCategories: builder.query<CategoriesResponse, void>({
             query: () => '/products/categories',
         }),
+        getProductsByCategory: builder.query<ProductsResponse, string>({
+            query:(category) => `/products/category/${category}`
+        }),
     }),
 });
 
 export const { 
     useGetProductsQuery,
     useGetCategoriesQuery,
+    useGetProductsByCategoryQuery,
 } = productsApi; 

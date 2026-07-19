@@ -2,13 +2,14 @@ import './AccordionItem.css';
 import ArrowIcon from '@/shared/assets/icons/arrow.svg';
 
 interface CategoryItemProps {
-    category: string;
+    label: string;
+    value: string;
     isSelected: boolean;
-    onSelect: (isSelected: boolean) => void;
     isLast: boolean;
+    onSelect: () => void;
 }
 
-export const AccordionItem = ( { category, isSelected, onSelect, isLast }: CategoryItemProps) => {
+export const AccordionItem = ( { label, isSelected, isLast, onSelect }: CategoryItemProps) => {
 
     return (
         <div className='accordion-item'>
@@ -18,9 +19,9 @@ export const AccordionItem = ( { category, isSelected, onSelect, isLast }: Categ
                     ${isSelected ? 'active' : ''} 
                     ${isLast ? 'last' : ''}
                 `}
-                onClick={() => onSelect(isSelected)}
+                onClick={onSelect}
             >
-                {category}
+                {label}
                 <ArrowIcon/>
             </button>
         </div>

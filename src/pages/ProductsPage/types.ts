@@ -21,7 +21,7 @@ export interface ProductsResponse {
 
 export interface Category {
     name: string,
-    slug?: string,
+    slug: string,
     url?: string,
 }
 
