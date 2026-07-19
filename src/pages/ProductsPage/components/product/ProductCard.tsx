@@ -2,6 +2,7 @@ import './ProductCard.css';
 import { ProductResponse } from '@/pages/index';
 import { Link } from 'react-router-dom';
 import StarIcon from '@/shared/assets/icons/star.svg';
+import { Button } from '@/shared/ui';
 
 export const ProductCard = (props: ProductResponse) => {
 
@@ -22,14 +23,15 @@ export const ProductCard = (props: ProductResponse) => {
             </Link>
             <div className="product__body">
                 <Link to={`${id}`} className='product__descr'>{title}</Link>
-                {/* <h3 className='product__descr'>{title}</h3> */}
+                <span className='product__price'>{price} €</span>
                 <div className="product__purchase">
-                    <span className='product__price'>{price} €</span>
-                    <div className="product__buttons">
-                        <button>-</button>
+                    <Button className='product__button product__button_add'>
+                        -
+                    </Button>
                         <div className='product__count'>0</div>
-                        <button>+</button>
-                    </div>
+                    <Button className='product__button product__button_minus'>
+                        +
+                    </Button>
                 </div>
             </div>
         </div>
