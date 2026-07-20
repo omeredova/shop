@@ -1,0 +1,139 @@
+.product-page {
+    color: var(--product-descr);
+    margin: 50px 20px;
+    padding: 20px;
+    height: 70vh;
+    background-color: var(--product-background);
+    box-shadow: var(--product-shadow);
+    display: flex;
+}
+
+.product-page__images {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.product-page__images img {
+    object-fit: cover;
+}
+
+.product-page__info {
+    height: 100%;
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-page__title {
+    font-size: 24px;
+    opacity: .8;
+}
+
+.product-page__brand {
+    margin-top: 8px;
+    opacity: .6;
+}
+
+.product-page__rating {
+    margin-top: 10px;
+}
+
+.product-page__price-block {
+    font-size: 20px;
+}
+
+.product-page__price-title {
+    opacity: .6;
+}
+
+.product-page__price {
+    margin-top: 5px;
+    opacity: .8;
+}
+
+.product-page__purchase {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-page__descr-title {
+    font-size: 18px;
+    opacity: .6;   
+}
+
+.product-page__description {
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+    .product-page {
+        margin: 20px 10px;
+        padding: 15px;
+        height: auto;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .product-page__images {
+        flex: none;
+        width: 100%;
+        height: 300px;
+    }
+
+    .product-page__images img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .product-page__info {
+        flex: none;
+        width: 100%;
+        height: auto;
+        gap: 25px;
+        align-items: center;
+    }
+
+    .product-page__main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-page__title {
+        font-size: 20px;
+    }
+
+    .product-page__brand {
+        font-size: 18px;
+    }
+
+    .product-page__price-block {
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-page__descr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-page__descr-title {
+        font-size: 16px;
+    }
+
+    .product-page__description {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .product-page__purchase {
+        gap: 8px;
+    }
+}

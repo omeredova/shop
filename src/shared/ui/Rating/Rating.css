@@ -1,0 +1,15 @@
+.product__rating {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--product-descr);
+    opacity: 70%;
+    font-size: 12px;
+}
+
+.product-page__rating {
+    display: flex;
+}

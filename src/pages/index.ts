@@ -8,4 +8,6 @@ export { ProductCard } from './ProductsPage/components/product/ProductCard';
 
 export { useGetProductsQuery, useGetCategoriesQuery, useGetProductsByCategoryQuery } from './ProductsPage/api/productsApi';
 
-export type { ProductResponse, ProductDetails, ProductsResponse, Category, CategoriesResponse } from './ProductsPage/types';
+export { useGetProductQuery } from './ProductPage/api/productApi';
+
+export type { ProductResponse, ProductDetails, ProductsResponse, Category, CategoriesResponse, AvailabilityStatus } from './ProductsPage/types';

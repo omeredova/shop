@@ -8,8 +8,28 @@ export interface ProductResponse {
     images?: string[];
 }
 
+export interface Review {
+    rating: number;
+    comment: string;
+    date: string;
+    reviewerName: string;
+    reviewerEmail: string;
+}
+
+export type AvailabilityStatus =
+    | 'In Stock'
+    | 'Low Stock'
+    | 'Out of Stock';
+
 export interface ProductDetails extends ProductResponse {
     description: string;
+    stock: number;
+    brand: string;
+    warrantyInformation: string;
+    shippingInformation: string;
+    availabilityStatus: AvailabilityStatus;
+    returnPolicy: string;
+    reviews: Review[];
 }
 
 export interface ProductsResponse {
