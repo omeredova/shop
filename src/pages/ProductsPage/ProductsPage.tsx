@@ -38,10 +38,16 @@ export const ProductsPage = () => {
                     <Categories categories={categories} />
                 )}
             </div>
-            <div className='products__container'>
-                {isFetching ? (
-                    <h1>LOADING</h1>
-                ) : productsData }
+
+            <div>
+                <div className="products__count">
+                    Products found: <span className='products__count-total'>{products?.total}</span>
+                </div>
+                <div className='products__container'>
+                    {isFetching ? (
+                        <h1>LOADING</h1>
+                    ) : productsData }
+                </div>
             </div>
         </section>
     )
