@@ -22,4 +22,12 @@
     --btn-background: #e55a6324;
 
     --accordion-border: #E6E6E6;
+
+    --badge-color-in: #15803d;
+    --badge-color-low: #a16207;
+    --badge-color-out: #b91c1c;
+
+    --badge-bg-in: #dcfce7;
+    --badge-bg-low: #fef9c3;
+    --badge-bg-out: #fee2e2;
 }

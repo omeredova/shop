@@ -1,8 +1,7 @@
 import './ProductCard.css';
 import { ProductResponse } from '@/pages/index';
 import { Link } from 'react-router-dom';
-import StarIcon from '@/shared/assets/icons/star.svg';
-import { Button } from '@/shared/ui';
+import { Button, Rating } from '@/shared/ui';
 
 export const ProductCard = (props: ProductResponse) => {
 
@@ -15,10 +14,7 @@ export const ProductCard = (props: ProductResponse) => {
                     <div className="product__cover">
                         <img className='product__img' src={thumbnail} alt={`photo of ${title}`} />
                     </div>
-                    <div className="product__rating">
-                        <span>{rating}</span>
-                        <StarIcon/>
-                    </div>
+                    <Rating rating={rating} className='product__rating'/>
                 </div>
             </Link>
             <div className="product__body">
