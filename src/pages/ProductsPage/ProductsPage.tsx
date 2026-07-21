@@ -1,24 +1,25 @@
 import './ProductsPage.css';
-import { useGetProductsQuery, useGetCategoriesQuery, useGetProductsByCategoryQuery } from '@/pages/index';
+import { useGetProductsQuery, useGetCategoriesQuery } from '@/pages/index';
 import { ProductResponse, Categories, ProductCard } from '@/pages/index';
 import { useProductsFilter } from '@/shared';
+import { useMemo } from "react";
+
+export interface ProductsFilters {
+    category?: string;
+    search?: string;
+}
 
 export const ProductsPage = () => {
 
-    const { category } = useProductsFilter();
+    const { category, search, setFilter } = useProductsFilter();
     const { data: categories } = useGetCategoriesQuery();
 
-    const { data: allProducts, isFetching: isAllProductsFetching } = useGetProductsQuery(undefined, {
-        skip: !!category
-    });
-    const { data: categoryProducts, isFetching: isCategoryFetching } = useGetProductsByCategoryQuery(category!,
-        {
-            skip: !category
-        }
-    )
+    const filters = useMemo<ProductsFilters>(() => ({
+        ...(category && { category }),
+        ...(search && { search })
+    }), [category, search])
 
-   const products = category ? categoryProducts : allProducts;
-   const isFetching = isCategoryFetching || isAllProductsFetching;
+    const { data: products, isFetching, isError } = useGetProductsQuery(filters)
     
     const productsData = products?.products.map(({id, thumbnail, title, price, rating}: ProductResponse) => (
         <ProductCard
@@ -31,6 +32,8 @@ export const ProductsPage = () => {
         />
     ))
 
+    const isEmpty = !isFetching && !isError && products?.products.length === 0;
+
     return(
         <section className='products'>
             <div className="products__categories">
@@ -41,12 +44,33 @@ export const ProductsPage = () => {
 
             <div>
                 <div className="products__count">
-                    Products found: <span className='products__count-total'>{products?.total}</span>
+                    {search
+                        ? <>Results for <span className='products__count-total'>«{search}»</span>: </>
+                        : 'Products found: '}
+                    <span className='products__count-total'>{isFetching ? '…' : products?.total ?? 0}</span>
                 </div>
-                <div className='products__container'>
-                    {isFetching ? (
-                        <h1>LOADING</h1>
-                    ) : productsData }
+
+                {isError && (
+                    <h1 className='products__message'>Failed to load products. Try again later.</h1>
+                )}
+
+                {isEmpty && (
+                    <div className='products__message'>
+                        <h1>NO MATCHES.</h1>
+                        {category && (
+                            <button
+                                className='products__reset'
+                                type='button'
+                                onClick={() => setFilter('category', '')}
+                            >
+                                Search in all categories
+                            </button>
+                        )}
+                    </div>
+                )}
+
+                <div className='products__container' aria-busy={isFetching}>
+                    {productsData}
                 </div>
             </div>
         </section>

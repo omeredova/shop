@@ -16,6 +16,17 @@
     color: var(--route-color);
 }
 
+.products__reset {
+    margin-top: 8px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.products__container[aria-busy='true'] {
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+}
+
 .products__container {
     margin-top: 24px;
     width: 100%;

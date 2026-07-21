@@ -6,7 +6,7 @@ export { LoginPage } from './LoginPage/LoginPage';
 export { Categories } from './ProductsPage/components/categories/Categories';
 export { ProductCard } from './ProductsPage/components/product/ProductCard';
 
-export { useGetProductsQuery, useGetCategoriesQuery, useGetProductsByCategoryQuery } from './ProductsPage/api/productsApi';
+export { useGetProductsQuery, useGetCategoriesQuery } from './ProductsPage/api/productsApi';
 
 export { useGetProductQuery } from './ProductPage/api/productApi';
 

@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import CartIcon from '../../shared/assets/icons/cart.svg';
 import Logo from '../../shared/assets/icons/logo.svg';
 import { SearchForm } from '@/shared/ui';
+import { useProductsFilter } from '@/shared';
 
 export const Header = () => {
+
+    const { resetFilters } = useProductsFilter();
 
     return(
         <header className="header">
             <div className="header__left">
-                <Link className="header__link" to="/">
+                <Link className="header__link" onClick={() => resetFilters()} to="/">
                     <Logo />
                 </Link>
                 <SearchForm />
