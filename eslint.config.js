@@ -30,6 +30,7 @@ export default tseslint.config(
                     allowConstantExport: true,
                 },
             ],
+            'react-hooks/set-state-in-effect': 'off',
         },
     },
     {

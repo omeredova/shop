@@ -14,3 +14,7 @@
 .last {
     border-bottom: none;
 }
+
+.active {
+    opacity: .5;
+}
