@@ -21,3 +21,10 @@
 .product__button_add {
     visibility: hidden;
 }
+
+.auth__button {
+    display: block;
+    margin: 30px auto;
+    width: 100px;
+    font-size: 18px;
+}

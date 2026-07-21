@@ -1,7 +1,9 @@
 export { ProductsPage } from './ProductsPage/ProductsPage';
 export { CartPage } from './CartPage/CartPage';
 export { ProductPage } from './ProductPage/ProductPage';
-export { LoginPage } from './LoginPage/LoginPage';
+export { AuthForm } from './Auth/AuthForm';
+export { LoginPage } from './Auth/components/LoginPage';
+export { SignPage } from './Auth/components/SignPage'
 
 export { Categories } from './ProductsPage/components/categories/Categories';
 export { ProductCard } from './ProductsPage/components/product/ProductCard';

@@ -1,14 +1,19 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { ProductsPage, CartPage, ProductPage, LoginPage } from '@/pages';
+import { ProductsPage, CartPage, ProductPage, LoginPage, SignPage } from '@/pages';
+import { ShopLayout } from '@/app';
 
 export const ShopRouter = () => {
-    return(
+    return (
         <Routes>
-            <Route path='/' element={<Navigate to="/products" replace />}/>
-            <Route path='/products' element={<ProductsPage />} />
-            <Route path='/products/:id' element={<ProductPage />} />
-            <Route path='/account/login' element={<LoginPage/>}/>
-            <Route path='/cart' element={<CartPage/>} />
+            <Route path="/account/login" element={<LoginPage />} />
+            <Route path="/account/register" element={<SignPage />} />
+
+            <Route element={<ShopLayout />}>
+                <Route path="/" element={<Navigate to="/products" replace />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/products/:id" element={<ProductPage />} />
+                <Route path="/cart" element={<CartPage />} />
+            </Route>
         </Routes>
-    )
-}
+    );
+};
