@@ -1,10 +1,19 @@
 export interface AuthField {
     id: string;
     type: 'text' | 'email' | 'password';
-    name: string;
+    name: AuthFieldName;
     placeholder: string;
     label: string;
 }
+
+export interface LoginRequest {
+    username: string;
+    password: string;
+    email?: string;
+    confirmPassword?: string;
+}
+
+export type AuthFieldName = keyof LoginRequest;
 
 export interface AuthFormProps {
     title: string;
@@ -14,4 +23,17 @@ export interface AuthFormProps {
     transferText: string;
     transferLinkText: string;
     transferLinkPath: string;
+    initialValues?: LoginRequest;
+    onSubmit: (values: LoginRequest) => void;
+}
+
+export interface LoginResponse {
+    id: number;
+    username: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    image: string;
+    accessToken: string;
+    refreshToken?: string
 }

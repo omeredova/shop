@@ -1,6 +1,15 @@
 import { AuthForm } from '@/pages';
+import { LoginRequest, useLoginMutation } from '@/pages/Auth';
 
 export const LoginPage = () => {
+
+    const [login ] = useLoginMutation();
+
+    const handleLogin = async (values: LoginRequest) => {
+        console.log('values', values)
+        const response = await login(values)
+        console.log(response);
+    }
 
     return (
         <AuthForm
@@ -9,11 +18,11 @@ export const LoginPage = () => {
             buttonText='Log In'
             fields={[
                 {
-                    id: 'email',
-                    type: 'email',
-                    name: 'email',
-                    placeholder: 'Enter your email',
-                    label: 'Email Address',
+                    id: 'username',
+                    type: 'text',
+                    name: 'username',
+                    placeholder: 'Enter your username',
+                    label: 'Username',
                 },
                 {
                     id: 'password',
@@ -23,9 +32,14 @@ export const LoginPage = () => {
                     label: 'Password',
                 },
             ]}
+            initialValues={{
+                username: 'emilys',
+                password: 'emilyspass',
+            }}
             transferText="Don't have an account?"
             transferLinkText='Sign Up'
             transferLinkPath='/account/register'
+            onSubmit={handleLogin}
         />
     );
 };
