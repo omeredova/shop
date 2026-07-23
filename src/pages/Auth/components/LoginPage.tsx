@@ -3,7 +3,7 @@ import { setCartData } from '@/app/store/slices/cartSlice';
 import { AuthForm } from '@/pages';
 import { LoginRequest, useLoginMutation } from '@/pages/Auth';
 import { useLazyGetCartByUserQuery } from '@/pages/CartPage';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '@/shared';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ export const LoginPage = () => {
     const [login ] = useLoginMutation();
     const [getCartByUser ] = useLazyGetCartByUserQuery();
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const [error, setError] = useState(false)

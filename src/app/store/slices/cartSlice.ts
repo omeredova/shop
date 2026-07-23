@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit" ;
-import { ProductResponse } from '@/pages/index';
+import { ProductCartResponse } from '@/pages/index';
 
 interface CartState {
-    products: ProductResponse[] | null;
+    products: ProductCartResponse[] | [];
     total: number,
     userId: number,
     totalProducts: number,
@@ -10,7 +10,7 @@ interface CartState {
 }
 
 const initialState: CartState = {
-    products: null,
+    products: [],
     total: 0,
     userId: 0,
     totalProducts: 0,

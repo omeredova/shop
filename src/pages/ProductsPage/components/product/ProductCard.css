@@ -68,8 +68,27 @@
     visibility: hidden;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+    .product {
+        max-width: none;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
     .product__cover {
         aspect-ratio: 1 / 1;
+    }
+
+    .product__body {
+        padding: 10px 8px;
+    }
+
+    .product__purchase {
+        margin-top: 10px;
+    }
+
+    .product__buttons {
+        width: 45%;
+        padding: 3px 6px;
     }
 }

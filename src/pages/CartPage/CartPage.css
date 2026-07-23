@@ -1,0 +1,123 @@
+.cart-page {
+    margin: 50px 20px;
+    padding: 20px;
+    background: var(--product-background);
+    box-shadow: var(--product-shadow);
+}
+
+.cart-page__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-page__table th {
+    background: var(--table-bg);
+    text-align: left;
+    padding: 14px;
+}
+
+.cart-page__table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--table-border);
+}
+
+.cart-page__empty {
+    width: 100%;
+    height: 350px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+    opacity:.8;
+}
+
+.cart-page__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.cart-page__total {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+@media (max-width:768px) {
+
+    .cart-page {
+        margin: 20px 10px;
+        padding: 12px;
+    }
+
+    .cart-page__table,
+    .cart-page__table tbody,
+    .cart-page__table tr,
+    .cart-page__table td {
+        display: block;
+        width: 100%;
+    }
+
+    .cart-page__table thead {
+        display: none;
+    }
+
+    .cart-page__table tr {
+        margin-bottom: 18px;
+        border: 1px solid var(--table-border);
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--product-background);
+    }
+
+    .cart-page__table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--table-border);
+    }
+
+    .cart-page__table td:last-child {
+        border-bottom: none;
+    }
+
+    .cart-page__table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        opacity: .7;
+    }
+
+    .cart-page__table td:first-child::before {
+        display: none;
+    }
+
+    .cart-page__empty {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        text-align: center;
+    }
+
+    .cart-page__empty::before {
+        display: none;
+    }
+
+    .cart-page__actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .cart-page__total {
+        text-align: right;
+        font-size: 26px;
+    }
+
+    .cart_button {
+        width: 100%;
+    }
+}
