@@ -2,6 +2,10 @@ import { AuthForm } from '@/pages';
 
 export const SignPage = () => {
 
+    const handleRegister = () => {
+        console.log("Registered")
+    }
+
     return (
         <AuthForm
             title='Sign up'
@@ -9,11 +13,11 @@ export const SignPage = () => {
             buttonText='Sign Up'
             fields={[
                 {
-                    id: 'name',
+                    id: 'username',
                     type: 'text',
-                    name: 'name',
-                    placeholder: 'Enter your name',
-                    label: 'Full name',
+                    name: 'username',
+                    placeholder: 'Enter your username',
+                    label: 'Username',
                 },
                 {
                     id: 'email',
@@ -37,9 +41,14 @@ export const SignPage = () => {
                     label: 'Confirm Password',
                 },
             ]}
+            initialValues={{
+                username: 'emilys',
+                password: 'emilyspass',
+            }}
             transferText='Already have an account?'
             transferLinkText='Log In'
             transferLinkPath='/account/login'
+            onSubmit={handleRegister}
         />
     );
 };

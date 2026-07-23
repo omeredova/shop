@@ -1,8 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { App } from '@/app';
-import { store } from '@/app';
+import { App, store } from '@/app';
 import './app/styles/fonts.css'
 import './app/styles/globals.css'
 import './app/styles/reset.css'

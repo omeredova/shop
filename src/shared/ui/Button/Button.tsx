@@ -7,7 +7,7 @@ interface ButtonProps {
 
 export const Button = ({ children, className = '' }: ButtonProps) => {
     return (
-        <button className={`button ${className}`}>
+        <button className={`button ${className}`} type="submit">
             {children}
         </button>
     );

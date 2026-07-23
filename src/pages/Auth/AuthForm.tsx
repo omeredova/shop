@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import './AuthForm.css';
 import LogoIcon from '@/shared/assets/icons/logo.svg';
 import { Button } from '@/shared/ui';
 import { Link } from 'react-router-dom';
-import type { AuthFormProps } from '../Auth/types/auth.types';
+import type { AuthFormProps, LoginRequest } from '../Auth/types/auth.types';
 
 export const AuthForm = ({
     title,
@@ -11,12 +12,27 @@ export const AuthForm = ({
     fields,
     transferText,
     transferLinkText,
-    transferLinkPath
+    transferLinkPath,
+    onSubmit,
+    initialValues,
+    error
 }: AuthFormProps) => {
+
+    const [values, setValues] = useState<LoginRequest>(
+        initialValues ?? {
+            username: '',
+            password: ''
+        }
+    );
 
     return (
         <div className='auth'>
-            <form className='auth__form'>
+            <form 
+                className='auth__form'
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    onSubmit(values);
+                }}>
                 <div className='auth__header'>
                     <LogoIcon />
                 </div>
@@ -27,7 +43,11 @@ export const AuthForm = ({
                     </h3>
 
                     <div className='auth__rules-subheader'>
-                        {subtitle}
+                        {
+                            error
+                                ? 'Please check your username and password'
+                                : subtitle
+                        }
                     </div>
                 </div>
 
@@ -43,7 +63,14 @@ export const AuthForm = ({
                                 type={field.type}
                                 name={field.name}
                                 placeholder={field.placeholder}
-                                className='form__input'
+                                className={`form__input ${error ? 'form__input-error' : ''}`}
+                                value={values[field.name] ?? ''}
+                                onChange={(event) =>
+                                    setValues({
+                                        ...values,
+                                        [field.name]: event.target.value
+                                    })
+                                }
                             />
                         </div>
                     ))}
