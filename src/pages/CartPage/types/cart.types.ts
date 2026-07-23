@@ -1,7 +1,7 @@
-import { ProductResponse } from '@/pages/index';
+import { ProductCartResponse } from '@/pages/index';
 
 export interface CartResponse {
-    products: ProductResponse[],
+    products: ProductCartResponse[],
     total: number,
     userId: number,
     totalProducts: number,

@@ -8,6 +8,13 @@ export interface ProductResponse {
     images?: string[];
 }
 
+export interface ProductCartResponse extends ProductResponse {
+    quantity: number;
+    total: number;
+    discountPercentage: number;
+    discountedTotal: number;
+}
+
 export interface Review {
     rating: number;
     comment: string;

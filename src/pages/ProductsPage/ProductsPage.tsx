@@ -35,31 +35,31 @@ export const ProductsPage = () => {
     const isEmpty = !isFetching && !isError && products?.products.length === 0;
 
     return(
-        <section className='products'>
-            <div className="products__categories">
+        <section className='products-page'>
+            <div className="products-page__categories">
                 {categories && (
                     <Categories categories={categories} />
                 )}
             </div>
 
             <div>
-                <div className="products__count">
+                <div className="products-page__count">
                     {search
-                        ? <>Results for <span className='products__count-total'>«{search}»</span>: </>
+                        ? <>Results for <span className='products-page__count-total'>«{search}»</span>: </>
                         : 'Products found: '}
-                    <span className='products__count-total'>{isFetching ? '…' : products?.total ?? 0}</span>
+                    <span className='product-page__count-total'>{isFetching ? '…' : products?.total ?? 0}</span>
                 </div>
 
                 {isError && (
-                    <h1 className='products__message'>Failed to load products. Try again later.</h1>
+                    <h1 className='products-page__message'>Failed to load products. Try again later.</h1>
                 )}
 
                 {isEmpty && (
-                    <div className='products__message'>
+                    <div className='products-page__message'>
                         <h1>NO MATCHES.</h1>
                         {category && (
                             <button
-                                className='products__reset'
+                                className='products-page__reset'
                                 type='button'
                                 onClick={() => setFilter('category', '')}
                             >
@@ -69,7 +69,7 @@ export const ProductsPage = () => {
                     </div>
                 )}
 
-                <div className='products__container' aria-busy={isFetching}>
+                <div className='products-page__container' aria-busy={isFetching}>
                     {productsData}
                 </div>
             </div>

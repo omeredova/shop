@@ -12,4 +12,4 @@ export { useGetProductsQuery, useGetCategoriesQuery } from './ProductsPage/api/p
 
 export { useGetProductQuery } from './ProductPage/api/productApi';
 
-export type { ProductResponse, ProductDetails, ProductsResponse, Category, CategoriesResponse, AvailabilityStatus } from './ProductsPage/types';
+export type { ProductResponse, ProductCartResponse, ProductDetails, ProductsResponse, Category, CategoriesResponse, AvailabilityStatus } from './ProductsPage/types';

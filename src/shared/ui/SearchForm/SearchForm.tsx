@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import SearchIcon from '../../assets/icons/search.svg';
-import { useProductsFilter } from '@/shared/hooks/useProductsFilters';
-import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue';
+import { useProductsFilter } from '@/shared';
+import { useDebouncedValue } from '@/shared';
 import React, { useEffect, useState } from 'react';
 
 export const SearchForm = () => {
