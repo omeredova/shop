@@ -14,7 +14,8 @@ export const AuthForm = ({
     transferLinkText,
     transferLinkPath,
     onSubmit,
-    initialValues
+    initialValues,
+    error
 }: AuthFormProps) => {
 
     const [values, setValues] = useState<LoginRequest>(
@@ -42,7 +43,11 @@ export const AuthForm = ({
                     </h3>
 
                     <div className='auth__rules-subheader'>
-                        {subtitle}
+                        {
+                            error
+                                ? 'Please check your username and password'
+                                : subtitle
+                        }
                     </div>
                 </div>
 
@@ -58,7 +63,7 @@ export const AuthForm = ({
                                 type={field.type}
                                 name={field.name}
                                 placeholder={field.placeholder}
-                                className='form__input'
+                                className={`form__input ${error ? 'form__input-error' : ''}`}
                                 value={values[field.name] ?? ''}
                                 onChange={(event) =>
                                     setValues({

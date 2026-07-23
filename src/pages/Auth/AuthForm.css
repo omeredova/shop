@@ -67,6 +67,10 @@
     border-radius: var(--radius-btn);
 }
 
+.form__input-error {
+    border-color: red;
+}
+
 .auth__transfer {
     margin-top: 20px;
     opacity: .6;
