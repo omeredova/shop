@@ -1,5 +1,5 @@
 import './AvailabilityBadge.css';
-import { AvailabilityStatus } from '@/pages/index';
+import type { AvailabilityStatus } from '@/pages/ProductsPage';
 
 interface AvailabilityBadgeProps {
     status: AvailabilityStatus;

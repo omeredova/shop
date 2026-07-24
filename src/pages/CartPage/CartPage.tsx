@@ -1,7 +1,7 @@
 import './CartPage.css';
-import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { CartItem } from '@/pages/CartPage';
+import { useAppSelector } from '@/shared';
 import { Button } from '@/shared/ui';
+import { CartItem } from './components/CartItem';
 
 export const CartPage = () => {
 

@@ -1,5 +1,5 @@
 import './Rating.css';
-import StarIcon from '@/shared/assets/icons/star.svg';
+import StarIcon from '../../assets/icons/star.svg';
 
 interface RatingProps {
     className: string;

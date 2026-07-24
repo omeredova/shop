@@ -1,5 +1,5 @@
-import { baseApi } from "@/shared";
-import { LoginRequest, LoginResponse } from "@/pages/Auth";
+import { baseApi } from '@/shared';
+import type { LoginRequest, LoginResponse } from '../types/auth.types';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({

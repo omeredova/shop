@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProductsPage, CartPage, ProductPage, LoginPage, SignPage } from '@/pages';
-import { ShopLayout } from '@/app';
+import { ShopLayout } from '../layouts/ShopLayout';
 
 export const ShopRouter = () => {
     return (

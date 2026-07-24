@@ -1,7 +1,7 @@
 import './CartItem.css';
-import { ProductCartResponse } from '@/pages';
 import { Link } from 'react-router-dom';
 import { Button } from '@/shared/ui';
+import type { ProductCartResponse } from '@/pages/ProductsPage';
 
 interface CartProductProps {
     product: ProductCartResponse;

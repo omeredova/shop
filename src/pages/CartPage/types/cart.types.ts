@@ -1,4 +1,4 @@
-import { ProductCartResponse } from '@/pages/index';
+import type { ProductCartResponse } from '@/pages/ProductsPage';
 
 export interface CartResponse {
     products: ProductCartResponse[],

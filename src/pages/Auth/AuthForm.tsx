@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './AuthForm.css';
-import LogoIcon from '@/shared/assets/icons/logo.svg';
+import { LogoIcon } from '@/shared/assets/icons';
 import { Button } from '@/shared/ui';
 import { Link } from 'react-router-dom';
-import type { AuthFormProps, LoginRequest } from '../Auth/types/auth.types';
+import type { AuthFormProps, LoginRequest } from './types/auth.types';
 
 export const AuthForm = ({
     title,

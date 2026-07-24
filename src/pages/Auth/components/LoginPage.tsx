@@ -1,11 +1,11 @@
-import { setCredentials } from '@/app/store/slices/authSlice';
-import { setCartData } from '@/app/store/slices/cartSlice';
-import { AuthForm } from '@/pages';
-import { LoginRequest, useLoginMutation } from '@/pages/Auth';
+import { setCartData, setCredentials } from '@/app/store';
 import { useLazyGetCartByUserQuery } from '@/pages/CartPage';
 import { useAppDispatch } from '@/shared';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthForm } from '../AuthForm';
+import { useLoginMutation } from '../api/authApi';
+import type { LoginRequest } from '../types/auth.types';
 
 export const LoginPage = () => {
 

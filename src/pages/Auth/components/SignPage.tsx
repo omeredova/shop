@@ -1,4 +1,4 @@
-import { AuthForm } from '@/pages';
+import { AuthForm } from '../AuthForm';
 
 export const SignPage = () => {
 

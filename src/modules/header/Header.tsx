@@ -1,10 +1,8 @@
 import './Header.css';
 import { Link } from 'react-router-dom';
-import CartIcon from '../../shared/assets/icons/cart.svg';
-import Logo from '../../shared/assets/icons/logo.svg';
+import { CartIcon, LogoIcon } from '@/shared/assets/icons';
 import { SearchForm } from '@/shared/ui';
-import { useProductsFilter } from '@/shared';
-import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { useProductsFilter, useAppSelector } from '@/shared';
 
 export const Header = () => {
 
@@ -16,7 +14,7 @@ export const Header = () => {
         <header className="header">
             <div className="header__left">
                 <Link className="header__link" onClick={() => resetFilters()} to="/">
-                    <Logo />
+                    <LogoIcon />
                 </Link>
                 <SearchForm />
             </div>

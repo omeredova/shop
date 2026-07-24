@@ -1,8 +1,10 @@
 import './ProductsPage.css';
-import { useGetProductsQuery, useGetCategoriesQuery } from '@/pages/index';
-import { ProductResponse, Categories, ProductCard } from '@/pages/index';
 import { useProductsFilter } from '@/shared';
-import { useMemo } from "react";
+import { useMemo } from 'react';
+import { useGetProductsQuery, useGetCategoriesQuery } from './api/productsApi';
+import { Categories } from './components/categories/Categories';
+import { ProductCard } from './components/product/ProductCard';
+import type { ProductResponse } from './types';
 
 export interface ProductsFilters {
     category?: string;
