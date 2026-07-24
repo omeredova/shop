@@ -1,6 +1,6 @@
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { CartIcon, LogoIcon } from '@/shared/assets/icons';
+import { CartIcon, LogoIcon, ProfileIcon } from '@/shared/assets/icons';
 import { SearchForm } from '@/shared/ui';
 import { useProductsFilter, useAppSelector } from '@/shared';
 
@@ -18,11 +18,16 @@ export const Header = () => {
                 </Link>
                 <SearchForm />
             </div>
-
-            <div className="header__basket">
-                {productCount}
-                <Link className="header__cartIcon" to={user ? '/cart' : '/account/login'} >
-                    <CartIcon />
+            
+            <div className="header__right">
+                <div className="header__basket">
+                    <Link className="header__icon" to={user ? '/cart' : '/account/login'} >
+                        <CartIcon />
+                    </Link>
+                    {productCount}
+                </div>
+                <Link className="header__icon" to={user ? '/profile' : '/account/login'}>
+                    <ProfileIcon/>
                 </Link>
             </div>
         </header>
