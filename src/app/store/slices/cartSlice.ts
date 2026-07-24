@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit" ;
-import { ProductCartResponse } from '@/pages/index';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { ProductCartResponse } from '@/pages/ProductsPage';
 
 interface CartState {
     products: ProductCartResponse[] | [];

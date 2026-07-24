@@ -1,7 +1,7 @@
 import './Categories.css';
-import { CategoriesResponse } from '@/pages/index';
-import { AccordionItem } from '@/shared/ui/index';
+import { AccordionItem } from '@/shared/ui';
 import { useProductsFilter } from '@/shared';
+import type { CategoriesResponse } from '../../types';
 
 interface CategoriesProps {
     categories?: CategoriesResponse;

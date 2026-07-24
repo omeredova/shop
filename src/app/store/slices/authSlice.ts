@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoginResponse } from '@/pages/Auth';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { LoginResponse } from '@/pages/Auth';
 
 interface AuthState {
     user: LoginResponse | null;

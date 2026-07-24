@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/vitest';
 
-import { server } from '@/shared/utils/server';
+import { server } from '@/shared/utils';
 
 
 beforeAll(() => {

@@ -1,5 +1,5 @@
 import './AccordionItem.css';
-import ArrowIcon from '@/shared/assets/icons/arrow.svg';
+import ArrowIcon from '../../assets/icons/arrow.svg';
 
 interface CategoryItemProps {
     label: string;

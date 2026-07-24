@@ -2,11 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { ReactNode } from 'react';
-
+import type { ReactNode } from 'react';
 import { baseApi } from '@/shared';
-import authReducer from '@/app/store/slices/authSlice';
-
+import { authReducer } from '@/app/store';
 
 export const setupStore = () => {
     return configureStore({
@@ -20,7 +18,6 @@ export const setupStore = () => {
                 .concat(baseApi.middleware),
     });
 };
-
 
 export const renderWithProviders = (
     ui: ReactNode

@@ -1,8 +1,9 @@
 import './SearchForm.css';
 import SearchIcon from '../../assets/icons/search.svg';
-import { useProductsFilter } from '@/shared';
-import { useDebouncedValue } from '@/shared';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { ChangeEvent, SyntheticEvent } from 'react';
+import { useDebouncedValue } from '../../hooks/useDebouncedValue';
+import { useProductsFilter } from '../../hooks/useProductsFilters';
 
 export const SearchForm = () => {
 
@@ -23,11 +24,11 @@ export const SearchForm = () => {
         setFilter('search', query, { replace: true });
     }, [debouncedValue, search, setFilter]);
 
-    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
     }
 
-    const handleSubmit = (e:React.SyntheticEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         setFilter('search', value.trim(), { replace: true });
     }

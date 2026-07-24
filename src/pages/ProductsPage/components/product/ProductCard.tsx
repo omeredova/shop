@@ -1,7 +1,7 @@
 import './ProductCard.css';
-import { ProductResponse } from '@/pages/index';
 import { Link } from 'react-router-dom';
 import { Button, Rating } from '@/shared/ui';
+import type { ProductResponse } from '../../types';
 
 export const ProductCard = (props: ProductResponse) => {
 

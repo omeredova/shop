@@ -1,5 +1,5 @@
-import { baseApi } from "@/shared";
-import { ProductsResponse, CategoriesResponse } from '@/pages/index';
+import { baseApi } from '@/shared';
+import type { CategoriesResponse, ProductsResponse } from '../types';
 
 export const productsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({

@@ -1,8 +1,8 @@
 import './ProductPage.css';
 import { useParams } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useGetProductQuery } from '@/pages/index';
 import { Rating, AvailabilityBadge, Button } from '@/shared/ui';
+import { useGetProductQuery } from './api/productApi';
 
 export const ProductPage = () => {
     const { id } = useParams();
@@ -45,4 +45,3 @@ export const ProductPage = () => {
         </article>
     )
 }
-
