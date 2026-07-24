@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { ProductsPage, CartPage, ProductPage, LoginPage, SignPage } from '@/pages';
+import { ProductsPage, CartPage, ProductPage, LoginPage, SignPage, ProfilePage } from '@/pages';
 import { ShopLayout } from '../layouts/ShopLayout';
 
 export const ShopRouter = () => {
@@ -13,6 +13,7 @@ export const ShopRouter = () => {
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/products/:id" element={<ProductPage />} />
                 <Route path="/cart" element={<CartPage />} />
+                <Route path="/profile" element={<ProfilePage/>} />
             </Route>
         </Routes>
     );

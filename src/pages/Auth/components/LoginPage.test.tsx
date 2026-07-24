@@ -32,9 +32,10 @@ describe('LoginPage integration', () => {
                 expect.objectContaining({
                     id: expect.any(Number),
                     username: expect.any(String),
-                    accessToken: expect.any(String),
                 })
             );
+            expect(store.getState().auth.user).not.toHaveProperty('accessToken');
+            expect(store.getState().auth.accessToken).toEqual(expect.any(String));
         });
 
     });

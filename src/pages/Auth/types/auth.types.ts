@@ -34,7 +34,11 @@ export interface LoginResponse {
     email: string;
     firstName: string;
     lastName: string;
+    gender: string;
     image: string;
+}
+
+export interface LoginAuthResponse extends LoginResponse {
     accessToken: string;
-    refreshToken?: string
+    refreshToken: string
 }
