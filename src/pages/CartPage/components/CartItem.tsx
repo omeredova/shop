@@ -2,7 +2,7 @@ import './CartItem.css';
 import { Link } from 'react-router-dom';
 import { Button } from '@/shared/ui';
 import type { ProductCartResponse } from '@/pages/ProductsPage';
-import { useAddToCart, useRemoveFromCart } from '@/shared';
+import { useAddToCart, useRemoveFromCart, formatNumber } from '@/shared';
 
 interface CartProductProps {
     product: ProductCartResponse;
@@ -30,7 +30,7 @@ export const CartItem = ({ product }: CartProductProps) => {
                     </Link>
                 </div>
             </td>
-            <td data-label="Price"> {product.price} €</td>
+            <td data-label="Price"> {formatNumber(product.price)} €</td>
             <td data-label="Quantity">
                 <div className="cart-product__btns">
                     <Button 
@@ -49,7 +49,7 @@ export const CartItem = ({ product }: CartProductProps) => {
                     </Button>
                 </div>
             </td>
-            <td data-label="Total">{product.total} €</td>
+            <td data-label="Total">{formatNumber(product.total)} €</td>
         </tr>
     );
 };

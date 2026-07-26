@@ -2,7 +2,7 @@ import './ProductCard.css';
 import { Link } from 'react-router-dom';
 import { Button, Rating } from '@/shared/ui';
 import type { ProductResponse } from '../../types';
-import { useAddToCart, useAppSelector, useRemoveFromCart } from '@/shared';
+import { useAddToCart, useAppSelector, useRemoveFromCart, formatNumber } from '@/shared';
 
 export const ProductCard = (props: ProductResponse) => {
 
@@ -29,7 +29,7 @@ export const ProductCard = (props: ProductResponse) => {
             </Link>
             <div className="product__body">
                 <Link to={`${id}`} className='product__descr'>{title}</Link>
-                <span className='product__price'>{price} €</span>
+                <span className='product__price'>{formatNumber(price)} €</span>
                 <div className="product__purchase">
                     <Button
                         className={`product__button product__button_minus ${
