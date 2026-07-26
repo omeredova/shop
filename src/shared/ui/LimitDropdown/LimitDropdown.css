@@ -1,0 +1,15 @@
+.limit-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--categories-title);
+}
+
+.limit-dropdown select {
+    padding-inline: 8px;
+    border: 1px solid var(--filter-background);
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+}

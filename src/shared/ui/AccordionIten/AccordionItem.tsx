@@ -1,5 +1,4 @@
 import './AccordionItem.css';
-import ArrowIcon from '../../assets/icons/arrow.svg';
 
 interface CategoryItemProps {
     label: string;
@@ -22,7 +21,6 @@ export const AccordionItem = ( { label, isSelected, isLast, onSelect }: Category
                 onClick={onSelect}
             >
                 {label}
-                <ArrowIcon/>
             </button>
         </div>
     )
