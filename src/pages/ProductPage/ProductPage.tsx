@@ -9,14 +9,14 @@ export const ProductPage = () => {
     const { id } = useParams();
 
     const { data: product } = useGetProductQuery(id ?? skipToken)
-    const user = useAppSelector((state) => state.auth.user);
     const cart = useAppSelector((state) => state.cart);
     const addToCart = useAddToCart();
     const removeFromCart = useRemoveFromCart();
     const quantity = cart.products.find(
         (cartProduct) => cartProduct.id === product?.id
     )?.quantity ?? 0;
-    const isInUserCart = Boolean(user && quantity > 0);
+
+    console.log('quantity', quantity)
 
     return(
         <article className='product-page'>
@@ -41,11 +41,7 @@ export const ProductPage = () => {
                 </div>
                 <div className="product-page__purchase">
                     <Button
-                        className={`product-page__button product-page__button_minus ${
-                            isInUserCart
-                                ? 'product-page__button_minus_visible'
-                                : ''
-                        }`}
+                        className='product-page__button'
                         onClick={() => {
                             if (product) {
                                 void removeFromCart(product);
@@ -54,13 +50,11 @@ export const ProductPage = () => {
                     >
                         -
                     </Button>
-                    <div className={`product-page__count ${
-                        isInUserCart ? 'product-page__count_visible' : ''
-                    }`}>
+                    <div className='product-page__count'>
                         {quantity}
                     </div>
                     <Button
-                        className='product-page__button product-page__button_add'
+                        className='product-page__button'
                         onClick={() => {
                             if (product) {
                                 void addToCart(product);

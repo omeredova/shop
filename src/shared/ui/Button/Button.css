@@ -26,12 +26,6 @@
     visibility: visible;
 }
 
-
-.product-page__button_minus,
-.product-page__count {
-    visibility: hidden;
-}
-
 .auth__button {
     display: block;
     margin: 30px auto;
