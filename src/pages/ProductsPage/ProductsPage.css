@@ -16,6 +16,13 @@
     color: var(--route-color);
 }
 
+.products-page__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
 .products-page__reset {
     margin-top: 8px;
     text-decoration: underline;
@@ -47,10 +54,10 @@
         margin-inline: 15px;
     }
 
-    .products-page__count {
-        display: flex;
-        justify-content: center;
+    .products-page__toolbar {
         margin-top: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 }
 

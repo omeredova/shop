@@ -31,7 +31,9 @@
 
 @media (max-width: 600px) {
     .header {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
         align-items: stretch;
         padding: 15px;
     }
@@ -40,14 +42,24 @@
         display: contents;
     }
 
+    .header__right {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: center;
+    }
+
     .header__link {
-        order: 1;
+        grid-column: 1;
+        grid-row: 1;
+        align-self: center;
     }
 
     .header__basket {
-        order: 2;
-        position: absolute;
-        top: 28px;
-        right: 38px;
+        position: static;
+    }
+
+    .header .search {
+        grid-column: 1 / -1;
+        grid-row: 2;
     }
 }

@@ -6,15 +6,20 @@ interface SetFilterOptions {
 }
 
 export const useProductsFilter = () => {
-    const [ , setSearchParams ] = useSearchParams();
-    const [searchParams] = useSearchParams();
+    const [ searchParams, setSearchParams ] = useSearchParams();
 
     const category = searchParams.get('category') ?? '';
     const search = searchParams.get('search') ?? '';
+    const limit = searchParams.get('limit') ?? '30';
+    const skip = searchParams.get('skip') ?? '';
 
     const setFilter = useCallback((key: string, value: string, options?: SetFilterOptions) => {
         setSearchParams(prev => {
             const params = new URLSearchParams(prev);
+
+            if (key === 'category' || key === 'search' || key === 'limit') {
+                params.delete('skip');
+            }
 
             if (value) {
                 params.set(key, value);
@@ -35,6 +40,8 @@ export const useProductsFilter = () => {
     return {
         category,
         search,
+        limit,
+        skip,
         setFilter,
         resetFilters
     }

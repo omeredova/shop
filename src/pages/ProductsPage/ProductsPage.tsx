@@ -5,21 +5,26 @@ import { useGetProductsQuery, useGetCategoriesQuery } from './api/productsApi';
 import { Categories } from './components/categories/Categories';
 import { ProductCard } from './components/product/ProductCard';
 import type { ProductResponse } from './types';
+import { LimitDropdown, Pagination } from '@/shared/ui';
 
 export interface ProductsFilters {
     category?: string;
     search?: string;
+    limit: string;
+    skip?: string;
 }
 
 export const ProductsPage = () => {
 
-    const { category, search, setFilter } = useProductsFilter();
+    const { category, search, limit, skip, setFilter } = useProductsFilter();
     const { data: categories } = useGetCategoriesQuery();
 
     const filters = useMemo<ProductsFilters>(() => ({
+        limit,
         ...(category && { category }),
-        ...(search && { search })
-    }), [category, search])
+        ...(search && { search }),
+        ...(skip && { skip }),
+    }), [category, search, limit, skip])
 
     const { data: products, isFetching, isError } = useGetProductsQuery(filters)
     
@@ -35,6 +40,9 @@ export const ProductsPage = () => {
     ))
 
     const isEmpty = !isFetching && !isError && products?.products.length === 0;
+    const currentSkip = Number(skip) || 0;
+    const currentLimit = Number(limit);
+    const total = products?.total ?? 0;
 
     return(
         <section className='products-page'>
@@ -45,11 +53,14 @@ export const ProductsPage = () => {
             </div>
 
             <div>
-                <div className="products-page__count">
-                    {search
-                        ? <>Results for <span className='products-page__count-total'>«{search}»</span>: </>
-                        : 'Products found: '}
-                    <span className='product-page__count-total'>{isFetching ? '…' : products?.total ?? 0}</span>
+                <div className="products-page__toolbar">
+                    <div className="products-page__count">
+                        {search
+                            ? <>Results for <span className='products-page__count-total'>«{search}»</span>: </>
+                            : 'Products found: '}
+                        <span className='products-page__count-total'>{isFetching ? '…' : total}</span>
+                    </div>
+                    <LimitDropdown />
                 </div>
 
                 {isError && (
@@ -74,6 +85,17 @@ export const ProductsPage = () => {
                 <div className='products-page__container' aria-busy={isFetching}>
                     {productsData}
                 </div>
+
+                {!isError && (
+                    <Pagination
+                        skip={currentSkip}
+                        limit={currentLimit}
+                        total={total}
+                        disabled={isFetching}
+                        ariaLabel="Products pagination"
+                        onSkipChange={(nextSkip) => setFilter('skip', String(nextSkip))}
+                    />
+                )}
             </div>
         </section>
     )
