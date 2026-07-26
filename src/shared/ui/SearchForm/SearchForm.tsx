@@ -1,28 +1,33 @@
 import './SearchForm.css';
 import SearchIcon from '../../assets/icons/search.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import type { ChangeEvent, SyntheticEvent } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
 import { useProductsFilter } from '../../hooks/useProductsFilters';
 
 export const SearchForm = () => {
 
     const { search, setFilter } = useProductsFilter();
+    const { pathname } = useLocation();
+    const isProductsPage = pathname === '/products';
 
-    const [ value, setValue ] = useState(search ?? '');
+    const [ value, setValue ] = useState(isProductsPage ? search : '');
     const debouncedValue = useDebouncedValue(value, search ? 400 : 0);
 
-    useEffect(() => {
-        setValue(search ?? '');
-    }, [search]);
+    useLayoutEffect(() => {
+        setValue(isProductsPage ? search : '');
+    }, [isProductsPage, search]);
 
     useEffect(() => {
+        if(!isProductsPage) return;
+
         const query = debouncedValue.trim();
 
         if(query === (search ?? '')) return;
 
         setFilter('search', query, { replace: true });
-    }, [debouncedValue, search, setFilter]);
+    }, [debouncedValue, isProductsPage, search, setFilter]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
@@ -30,6 +35,8 @@ export const SearchForm = () => {
 
     const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if(!isProductsPage) return;
+
         setFilter('search', value.trim(), { replace: true });
     }
 
