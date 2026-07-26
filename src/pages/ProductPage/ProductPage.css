@@ -58,6 +58,11 @@
     gap: 10px;
 }
 
+.product-page__button_minus_visible,
+.product-page__count_visible {
+    visibility: visible;
+}
+
 .product-page__descr-title {
     font-size: 18px;
     opacity: .6;   

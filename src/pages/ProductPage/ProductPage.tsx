@@ -3,11 +3,20 @@ import { useParams } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { Rating, AvailabilityBadge, Button } from '@/shared/ui';
 import { useGetProductQuery } from './api/productApi';
+import { useAddToCart, useAppSelector, useRemoveFromCart } from '@/shared';
 
 export const ProductPage = () => {
     const { id } = useParams();
 
     const { data: product } = useGetProductQuery(id ?? skipToken)
+    const user = useAppSelector((state) => state.auth.user);
+    const cart = useAppSelector((state) => state.cart);
+    const addToCart = useAddToCart();
+    const removeFromCart = useRemoveFromCart();
+    const quantity = cart.products.find(
+        (cartProduct) => cartProduct.id === product?.id
+    )?.quantity ?? 0;
+    const isInUserCart = Boolean(user && quantity > 0);
 
     return(
         <article className='product-page'>
@@ -29,11 +38,33 @@ export const ProductPage = () => {
                     <div className='product-page__price'>{product?.price} €</div>
                 </div>
                 <div className="product-page__purchase">
-                    <Button className='product-page__button product-page__button_minus'>
+                    <Button
+                        className={`product-page__button product-page__button_minus ${
+                            isInUserCart
+                                ? 'product-page__button_minus_visible'
+                                : ''
+                        }`}
+                        onClick={() => {
+                            if (product) {
+                                void removeFromCart(product);
+                            }
+                        }}
+                    >
                         -
                     </Button>
-                    <div className='product-page__count'>0</div>
-                    <Button className='product-page__button product-page__button_add'>
+                    <div className={`product-page__count ${
+                        isInUserCart ? 'product-page__count_visible' : ''
+                    }`}>
+                        {quantity}
+                    </div>
+                    <Button
+                        className='product-page__button product-page__button_add'
+                        onClick={() => {
+                            if (product) {
+                                void addToCart(product);
+                            }
+                        }}
+                    >
                         +
                     </Button>
                 </div>
