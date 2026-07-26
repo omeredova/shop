@@ -2,12 +2,17 @@ import './CartItem.css';
 import { Link } from 'react-router-dom';
 import { Button } from '@/shared/ui';
 import type { ProductCartResponse } from '@/pages/ProductsPage';
+import { useAddToCart, useRemoveFromCart } from '@/shared';
 
 interface CartProductProps {
     product: ProductCartResponse;
 }
 
 export const CartItem = ({ product }: CartProductProps) => {
+
+    const addToCart = useAddToCart();
+    const removeFromCart = useRemoveFromCart();
+
     return (
         <tr className="cart-item">
             <td data-label="Product">
@@ -28,13 +33,18 @@ export const CartItem = ({ product }: CartProductProps) => {
             <td data-label="Price"> {product.price} €</td>
             <td data-label="Quantity">
                 <div className="cart-product__btns">
-                    <Button className="cart-page__button">
+                    <Button 
+                        className="cart-page__button"
+                        onClick={() => void removeFromCart(product)}
+                    >
                         -
                     </Button>
-                    <div className="product-page__count">
+                    <div className="cart-product__count">
                         {product.quantity}
                     </div>
-                    <Button className="cart-page__button">
+                    <Button className="cart-page__button"
+                        onClick={() => void addToCart(product)}
+                    >
                         +
                     </Button>
                 </div>

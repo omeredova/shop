@@ -68,6 +68,10 @@
     visibility: hidden;
 }
 
+.product__count_visible {
+    visibility: visible;
+}
+
 @media (max-width: 600px) {
     .product {
         max-width: none;

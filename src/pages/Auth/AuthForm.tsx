@@ -76,7 +76,7 @@ export const AuthForm = ({
                     ))}
                 </div>
 
-                <Button className='button auth__button'>
+                <Button className='button auth__button' type="submit">
                     {buttonText}
                 </Button>
             </form>

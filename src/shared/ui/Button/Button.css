@@ -18,7 +18,17 @@
     color: var(--header-color);
 }
 
-.product__button_add {
+.product__button_minus {
+    visibility: hidden;
+}
+
+.product__button_minus_visible {
+    visibility: visible;
+}
+
+
+.product-page__button_minus,
+.product-page__count {
     visibility: hidden;
 }
 

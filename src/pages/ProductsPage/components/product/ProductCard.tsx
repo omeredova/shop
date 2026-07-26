@@ -2,10 +2,20 @@ import './ProductCard.css';
 import { Link } from 'react-router-dom';
 import { Button, Rating } from '@/shared/ui';
 import type { ProductResponse } from '../../types';
+import { useAddToCart, useAppSelector, useRemoveFromCart } from '@/shared';
 
 export const ProductCard = (props: ProductResponse) => {
 
     const { title, price, thumbnail, rating, id } = props
+    const user = useAppSelector((state) => state.auth.user);
+    const cart = useAppSelector((state) => state.cart);
+    const addToCart = useAddToCart();
+    const removeFromCart = useRemoveFromCart();
+    const quantity = cart.products.find(
+        (product) => product.id === id
+    )?.quantity ?? 0;
+
+    const isInUserCart = Boolean(user && quantity > 0);
 
     return(
         <div className='product'>
@@ -21,11 +31,23 @@ export const ProductCard = (props: ProductResponse) => {
                 <Link to={`${id}`} className='product__descr'>{title}</Link>
                 <span className='product__price'>{price} €</span>
                 <div className="product__purchase">
-                    <Button className='product__button product__button_add'>
+                    <Button
+                        className={`product__button product__button_minus ${
+                            isInUserCart ? 'product__button_minus_visible' : ''
+                        }`}
+                        onClick={() => void removeFromCart(props)}
+                    >
                         -
                     </Button>
-                        <div className='product__count'>0</div>
-                    <Button className='product__button product__button_minus'>
+                    <div className={`product__count ${
+                        isInUserCart ? 'product__count_visible' : ''
+                    }`}>
+                        {quantity}
+                    </div>
+                    <Button
+                        className='product__button product__button_add'
+                        onClick={() => void addToCart(props)}
+                    >
                         +
                     </Button>
                 </div>
