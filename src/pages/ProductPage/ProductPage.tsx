@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { Rating, AvailabilityBadge, Button } from '@/shared/ui';
 import { useGetProductQuery } from './api/productApi';
-import { useAddToCart, useAppSelector, useRemoveFromCart } from '@/shared';
+import { useAddToCart, useAppSelector, useRemoveFromCart, formatNumber } from '@/shared';
 
 export const ProductPage = () => {
     const { id } = useParams();
@@ -35,7 +35,9 @@ export const ProductPage = () => {
                 </div>
                 <div className="product-page__price-block">
                     <h3 className='product-page__price-title'>Retail Price:</h3>
-                    <div className='product-page__price'>{product?.price} €</div>
+                    <div className='product-page__price'>
+                        {product ? formatNumber(product.price) : '—'} €
+                    </div>
                 </div>
                 <div className="product-page__purchase">
                     <Button

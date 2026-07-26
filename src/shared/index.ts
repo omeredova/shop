@@ -7,3 +7,4 @@ export { useAddToCart } from './hooks/useAddToCart';
 export { useRemoveFromCart } from './hooks/useRemoveFromCart';
 
 export { handlers } from './utils/handlers';
+export { formatNumber } from './utils/formatNumber';

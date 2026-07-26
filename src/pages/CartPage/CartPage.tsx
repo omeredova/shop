@@ -1,5 +1,5 @@
 import './CartPage.css';
-import { useAppSelector } from '@/shared';
+import { useAppSelector, formatNumber } from '@/shared';
 import { Button } from '@/shared/ui';
 import { CartItem } from './components/CartItem';
 
@@ -33,7 +33,9 @@ export const CartPage = () => {
                         </tbody>
                     </table>
                     <div className="cart-page__actions">
-                        <div className="cart-page__total"> Total: {cart.total} €</div>
+                        <div className="cart-page__total">
+                            Total: {formatNumber(cart.total)} €
+                        </div>
 
                         <Button className="cart_button">Buy now</Button>
                     </div>
