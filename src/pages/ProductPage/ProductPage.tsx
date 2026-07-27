@@ -1,14 +1,19 @@
 import './ProductPage.css';
 import { useParams } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { Rating, AvailabilityBadge, Button } from '@/shared/ui';
+import { Rating, AvailabilityBadge, Button, ErrorMessage, Loader } from '@/shared/ui';
 import { useGetProductQuery } from './api/productApi';
 import { useAddToCart, useAppSelector, useRemoveFromCart, formatNumber } from '@/shared';
 
 export const ProductPage = () => {
     const { id } = useParams();
 
-    const { data: product } = useGetProductQuery(id ?? skipToken)
+    const {
+        data: product,
+        isLoading,
+        isError,
+        refetch,
+    } = useGetProductQuery(id ?? skipToken);
     const cart = useAppSelector((state) => state.cart);
     const addToCart = useAddToCart();
     const removeFromCart = useRemoveFromCart();
@@ -16,36 +21,45 @@ export const ProductPage = () => {
         (cartProduct) => cartProduct.id === product?.id
     )?.quantity ?? 0;
 
-    console.log('quantity', quantity)
+    if (isLoading) {
+        return <Loader text="Loading product..." fullPage />;
+    }
+
+    if (isError || !product) {
+        return (
+            <ErrorMessage
+                message="Failed to load this product."
+                {...(id && { onRetry: () => void refetch() })}
+            />
+        );
+    }
 
     return(
         <article className='product-page'>
             <div className='product-page__images'>
-                <img src={product?.thumbnail} alt="" />
+                <img src={product.thumbnail} alt={product.title} />
 
             </div>
             <div className='product-page__info'>
                 <div className="product-page__main">
-                    <h3 className='product-page__title'>{product?.title}</h3>
-                    <h2 className='product-page__brand'>{product?.brand}</h2>
-                    <Rating rating={product?.rating} className='product-page__rating'/>
+                    <h3 className='product-page__title'>{product.title}</h3>
+                    <h2 className='product-page__brand'>{product.brand}</h2>
+                    <Rating rating={product.rating} className='product-page__rating'/>
                     <AvailabilityBadge 
-                        status={product?.availabilityStatus ?? 'Out of Stock'}
+                        status={product.availabilityStatus}
                     />
                 </div>
                 <div className="product-page__price-block">
                     <h3 className='product-page__price-title'>Retail Price:</h3>
                     <div className='product-page__price'>
-                        {product ? formatNumber(product.price) : '—'} €
+                        {formatNumber(product.price)} €
                     </div>
                 </div>
                 <div className="product-page__purchase">
                     <Button
                         className='product-page__button'
                         onClick={() => {
-                            if (product) {
-                                void removeFromCart(product);
-                            }
+                            void removeFromCart(product);
                         }}
                     >
                         -
@@ -56,9 +70,7 @@ export const ProductPage = () => {
                     <Button
                         className='product-page__button'
                         onClick={() => {
-                            if (product) {
-                                void addToCart(product);
-                            }
+                            void addToCart(product);
                         }}
                     >
                         +
@@ -66,7 +78,7 @@ export const ProductPage = () => {
                 </div>
                 <div className="product-page__descr">
                     <h3 className='product-page__descr-title'>Description:</h3>
-                    <div className='product-page__description'>{product?.description}</div>
+                    <div className='product-page__description'>{product.description}</div>
                 </div>
             </div>
         </article>

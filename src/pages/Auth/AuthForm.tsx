@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './AuthForm.css';
 import { LogoIcon } from '@/shared/assets/icons';
-import { Button } from '@/shared/ui';
+import { Button, ErrorMessage } from '@/shared/ui';
 import { Link } from 'react-router-dom';
 import type { AuthFormProps, LoginRequest } from './types/auth.types';
 
@@ -15,7 +15,8 @@ export const AuthForm = ({
     transferLinkPath,
     onSubmit,
     initialValues,
-    error
+    error,
+    isLoading = false,
 }: AuthFormProps) => {
 
     const [values, setValues] = useState<LoginRequest>(
@@ -76,8 +77,16 @@ export const AuthForm = ({
                     ))}
                 </div>
 
-                <Button className='button auth__button' type="submit">
-                    {buttonText}
+                {error && (
+                    <ErrorMessage message="Please check your username and password." />
+                )}
+
+                <Button
+                    className='button auth__button'
+                    type="submit"
+                    disabled={isLoading}
+                >
+                    {isLoading ? 'Loading...' : buttonText}
                 </Button>
             </form>
 

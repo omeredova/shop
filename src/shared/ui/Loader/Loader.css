@@ -1,0 +1,33 @@
+.loader {
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--product-descr);
+}
+
+.loader_full-page {
+    min-height: 60vh;
+}
+
+.loader__spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--accordion-border);
+    border-top-color: var(--route-color);
+    border-radius: 50%;
+    animation: loader-spin 0.8s linear infinite;
+}
+
+@keyframes loader-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loader__spinner {
+        animation-duration: 1.8s;
+    }
+}
