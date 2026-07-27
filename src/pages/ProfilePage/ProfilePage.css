@@ -1,6 +1,9 @@
+.profile-route {
+    margin: 50px;
+}
+
 .profile-page {
     color: var(--product-descr);
-    margin: 50px 20px;
     padding: 20px;
     min-height: 70vh;
     background-color: var(--product-background);
@@ -9,6 +12,12 @@
     flex-direction: column;
     align-items: center;
     gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .profile-route {
+        margin: 20px 10px;
+    }
 }
 
 .profile-page__info {
