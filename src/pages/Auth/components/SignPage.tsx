@@ -1,10 +1,35 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthForm } from '../AuthForm';
+import type { LoginRequest, RegistrationRequest } from '../types/auth.types';
+import { simulateRegistration, validateRegistration } from '../utils/registration';
 
 export const SignPage = () => {
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string>();
 
-    const handleRegister = () => {
-        console.log("Registered")
-    }
+    const handleRegister = async (values: LoginRequest) => {
+        const registration = values as RegistrationRequest;
+        const validationError = validateRegistration(registration);
+
+        if (validationError) {
+            setErrorMessage(validationError);
+            return;
+        }
+
+        setErrorMessage(undefined);
+        setIsLoading(true);
+
+        await simulateRegistration(registration);
+
+        navigate('/account/login', {
+            replace: true,
+            state: {
+                registrationSuccess: true,
+            },
+        });
+    };
 
     return (
         <AuthForm
@@ -41,14 +66,13 @@ export const SignPage = () => {
                     label: 'Confirm Password',
                 },
             ]}
-            initialValues={{
-                username: 'emilys',
-                password: 'emilyspass',
-            }}
             transferText='Already have an account?'
             transferLinkText='Log In'
             transferLinkPath='/account/login'
             onSubmit={handleRegister}
+            error={Boolean(errorMessage)}
+            errorMessage={errorMessage}
+            isLoading={isLoading}
         />
     );
 };

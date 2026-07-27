@@ -5,14 +5,12 @@ import type { LoginAuthResponse, LoginResponse } from '@/pages/Auth';
 interface AuthState {
     user: LoginResponse | null;
     accessToken: string | null;
-    initialized: boolean;
 }
 
 
 const initialState: AuthState = {
     user: null,
     accessToken: null,
-    initialized: false,
 }
 
 export const authSlice = createSlice({

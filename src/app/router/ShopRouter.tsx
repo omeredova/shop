@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Loader } from '@/shared/ui';
 import { ShopLayout } from '../layouts/ShopLayout';
+import { ProtectedRoute } from './ProtectedRoute';
 
 const ProductsPage = lazy(() => import('@/pages/ProductsPage/ProductsPage').then(
     ({ ProductsPage: page }) => ({ default: page })
@@ -33,8 +34,11 @@ export const ShopRouter = () => {
                     <Route path="/" element={<Navigate to="/products" replace />} />
                     <Route path="/products" element={<ProductsPage />} />
                     <Route path="/products/:id" element={<ProductPage />} />
-                    <Route path="/cart" element={<CartPage />} />
-                    <Route path="/profile" element={<ProfilePage/>} />
+
+                    <Route element={<ProtectedRoute />}>
+                        <Route path="/cart" element={<CartPage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
+                    </Route>
                 </Route>
             </Routes>
         </Suspense>

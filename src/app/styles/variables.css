@@ -33,4 +33,7 @@
 
     --table-bg: #f5f5f5;
     --table-border: #EEEEEE;
+
+    --success: #16794b;
+    --error: red;
 }

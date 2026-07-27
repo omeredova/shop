@@ -16,7 +16,7 @@ export const ProfilePage = () => {
             />
             <div className='profile-page'>
                 <div className="profile-page__image">
-                    <img src={user?.image} alt="" />
+                    <img src={user?.image} alt="user image" />
                 </div>
                 <div className="profile-page__info">
                     <h3 className='profile-page__name'>{user?.firstName} {user?.lastName}</h3>
