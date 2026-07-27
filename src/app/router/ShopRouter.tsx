@@ -40,6 +40,7 @@ export const ShopRouter = () => {
                         <Route path="/profile" element={<ProfilePage />} />
                     </Route>
                 </Route>
+                <Route path="*" element={<Navigate to="/products" replace />} />
             </Routes>
         </Suspense>
     );
