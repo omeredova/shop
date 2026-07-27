@@ -5,7 +5,7 @@ import { useGetProductsQuery, useGetCategoriesQuery } from './api/productsApi';
 import { Categories } from './components/categories/Categories';
 import { ProductCard } from './components/product/ProductCard';
 import type { ProductResponse } from './types';
-import { LimitDropdown, Pagination } from '@/shared/ui';
+import { LimitDropdown, Pagination, Loader, ErrorMessage } from '@/shared/ui';
 
 export interface ProductsFilters {
     category?: string;
@@ -17,7 +17,12 @@ export interface ProductsFilters {
 export const ProductsPage = () => {
 
     const { category, search, limit, skip, setFilter } = useProductsFilter();
-    const { data: categories } = useGetCategoriesQuery();
+    const {
+        data: categories,
+        isLoading: areCategoriesLoading,
+        isError: areCategoriesError,
+        refetch: refetchCategories,
+    } = useGetCategoriesQuery();
 
     const filters = useMemo<ProductsFilters>(() => ({
         limit,
@@ -26,7 +31,13 @@ export const ProductsPage = () => {
         ...(skip && { skip }),
     }), [category, search, limit, skip])
 
-    const { data: products, isFetching, isError } = useGetProductsQuery(filters)
+    const {
+        data: products,
+        isLoading,
+        isFetching,
+        isError,
+        refetch,
+    } = useGetProductsQuery(filters);
     
     const productsData = products?.products.map(({id, thumbnail, title, price, rating}: ProductResponse) => (
         <ProductCard
@@ -47,6 +58,13 @@ export const ProductsPage = () => {
     return(
         <section className='products-page'>
             <div className="products-page__categories">
+                {areCategoriesLoading && <Loader text="Loading categories..." />}
+                {areCategoriesError && (
+                    <ErrorMessage
+                        message="Failed to load categories."
+                        onRetry={() => void refetchCategories()}
+                    />
+                )}
                 {categories && (
                     <Categories categories={categories} />
                 )}
@@ -63,8 +81,13 @@ export const ProductsPage = () => {
                     <LimitDropdown />
                 </div>
 
+                {isLoading && <Loader text="Loading products..." />}
+
                 {isError && (
-                    <h1 className='products-page__message'>Failed to load products. Try again later.</h1>
+                    <ErrorMessage
+                        message="Failed to load products."
+                        onRetry={() => void refetch()}
+                    />
                 )}
 
                 {isEmpty && (
@@ -82,9 +105,11 @@ export const ProductsPage = () => {
                     </div>
                 )}
 
-                <div className='products-page__container' aria-busy={isFetching}>
-                    {productsData}
-                </div>
+                {!isLoading && !isError && (
+                    <div className='products-page__container' aria-busy={isFetching}>
+                        {productsData}
+                    </div>
+                )}
 
                 {!isError && (
                     <Pagination

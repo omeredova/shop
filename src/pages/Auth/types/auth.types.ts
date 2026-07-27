@@ -25,6 +25,7 @@ export interface AuthFormProps {
     transferLinkPath: string;
     initialValues?: LoginRequest;
     error?: boolean;
+    isLoading?: boolean;
     onSubmit: (values: LoginRequest) => void;
 }
 

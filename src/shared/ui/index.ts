@@ -5,3 +5,5 @@ export { Rating } from './Rating/Rating';
 export { AvailabilityBadge } from './AvailabilityBadge/AvailabilityBadge';
 export { LimitDropdown } from './LimitDropdown/LimitDropdown';
 export { Pagination } from './Pagination/Pagination';
+export { Loader } from './Loader/Loader';
+export { ErrorMessage } from './ErrorMessage/ErrorMessage';

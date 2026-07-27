@@ -1,7 +1,6 @@
 import { setCartData, setCredentials } from '@/app/store';
 import { useLazyGetCartByUserQuery } from '@/pages/CartPage';
 import { useAppDispatch } from '@/shared';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthForm } from '../AuthForm';
 import { useLoginMutation } from '../api/authApi';
@@ -9,13 +8,11 @@ import type { LoginRequest } from '../types/auth.types';
 
 export const LoginPage = () => {
 
-    const [login ] = useLoginMutation();
-    const [getCartByUser ] = useLazyGetCartByUserQuery();
+    const [login, loginState] = useLoginMutation();
+    const [getCartByUser, cartState] = useLazyGetCartByUserQuery();
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
-    const [error, setError] = useState(false)
 
     const handleLogin = async (values: LoginRequest) => {
         try {
@@ -31,8 +28,7 @@ export const LoginPage = () => {
             navigate('/products');
 
         } catch (error) {
-            setError(true)
-            console.log(error)
+            console.error(error)
         }
     };
 
@@ -65,7 +61,8 @@ export const LoginPage = () => {
             transferLinkText='Sign Up'
             transferLinkPath='/account/register'
             onSubmit={handleLogin}
-            error={error}
+            error={loginState.isError || cartState.isError}
+            isLoading={loginState.isLoading || cartState.isFetching}
         />
     );
 };
