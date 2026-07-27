@@ -1,7 +1,7 @@
 import './ProductPage.css';
 import { useParams } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { Rating, AvailabilityBadge, Button, ErrorMessage, Loader } from '@/shared/ui';
+import { Rating, AvailabilityBadge, Button, ErrorMessage, Loader, Breadcrumb } from '@/shared/ui';
 import { useGetProductQuery } from './api/productApi';
 import { useAddToCart, useAppSelector, useRemoveFromCart, formatNumber } from '@/shared';
 
@@ -34,8 +34,15 @@ export const ProductPage = () => {
         );
     }
 
-    return(
-        <article className='product-page'>
+    return (
+        <div className="product-details">
+            <Breadcrumb
+                items={[
+                    { label: 'Products', to: '/products' },
+                    { label: product.title },
+                ]}
+            />
+            <article className='product-page'>
             <div className='product-page__images'>
                 <img
                     src={product.thumbnail}
@@ -90,6 +97,7 @@ export const ProductPage = () => {
                     <div className='product-page__description'>{product.description}</div>
                 </div>
             </div>
-        </article>
-    )
+            </article>
+        </div>
+    );
 }

@@ -1,0 +1,39 @@
+.breadcrumb {
+    margin-bottom: 16px;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+.breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.breadcrumb__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.breadcrumb a {
+    color: var(--route-color);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb [aria-current='page'] {
+    color: var(--route-active);
+}
+
+.breadcrumb__separator {
+    display: flex;
+    align-items: center;
+    flex: none;
+}

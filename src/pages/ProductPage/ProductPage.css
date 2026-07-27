@@ -1,6 +1,9 @@
+.product-details {
+    margin: 50px;
+}
+
 .product-page {
     color: var(--product-descr);
-    margin: 50px 20px;
     padding: 20px;
     min-height: 70vh;
     background-color: var(--product-background);
@@ -68,8 +71,11 @@
 }
 
 @media (max-width: 768px) {
-    .product-page {
+    .product-details {
         margin: 20px 10px;
+    }
+
+    .product-page {
         padding: 15px;
         height: auto;
         flex-direction: column;

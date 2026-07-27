@@ -1,5 +1,8 @@
+.cart-route {
+    margin: 50px;
+}
+
 .cart-page {
-    margin: 50px 20px;
     padding: 20px;
     background: var(--product-background);
     box-shadow: var(--product-shadow);
@@ -44,9 +47,11 @@
 }
 
 @media (max-width:768px) {
+    .cart-route {
+        margin: 20px 10px;
+    }
 
     .cart-page {
-        margin: 20px 10px;
         padding: 12px;
     }
 
