@@ -1,0 +1,121 @@
+import { describe, expect, test } from 'vitest';
+import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { http, HttpResponse } from 'msw';
+import { renderWithProviders, server } from '@/shared/utils';
+import { LoginPage } from './LoginPage';
+
+describe('LoginPage integration', () => {
+
+    test('should save user credentials after successful login', async () => {
+
+        const user = userEvent.setup();
+
+        const { store } = renderWithProviders(<LoginPage />);
+
+        const usernameInput = screen.getByLabelText('Username');
+        const passwordInput = screen.getByLabelText('Password');
+
+        await user.clear(usernameInput);
+        await user.type(usernameInput, 'emilys');
+        await user.clear(passwordInput);
+        await user.type(passwordInput, 'emilyspass');
+
+        await user.click(
+            screen.getByRole('button', {
+                name: 'Log In'
+            })
+        );
+
+        await waitFor(() => {
+            expect(store.getState().auth.user).toEqual(
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    username: expect.any(String),
+                })
+            );
+            expect(store.getState().auth.user).not.toHaveProperty('accessToken');
+            expect(store.getState().auth.accessToken).toEqual(expect.any(String));
+        });
+
+    });
+
+    test('should not save user credentials after failed login', async () => {
+
+        server.use(
+            http.post(
+                'https://dummyjson.com/auth/login',
+                () => {
+                    return HttpResponse.json(
+                        {
+                            message: 'Invalid credentials',
+                        },
+                        {
+                            status: 401,
+                        }
+                    );
+                }
+            )
+        );
+
+        const user = userEvent.setup();
+        const { store } = renderWithProviders( <LoginPage />);
+
+        await user.clear(
+            screen.getByLabelText('Username')
+        );
+
+        await user.type(
+            screen.getByLabelText('Username'),
+            'wrong'
+        );
+
+        await user.clear(
+            screen.getByLabelText('Password')
+        );
+
+        await user.type(
+            screen.getByLabelText('Password'),
+            'wrong'
+        );
+
+        await user.click(
+            screen.getByRole('button', {
+                name: 'Log In'
+            })
+        );
+
+        await waitFor(() => {
+
+            expect(
+                store.getState().auth.user
+            ).toBeNull();
+
+        });
+    });
+
+    test('keeps a successful login when the cart cannot be loaded', async () => {
+        server.use(
+            http.get(
+                'https://dummyjson.com/carts/user/1',
+                () => HttpResponse.json(
+                    { message: 'Cart service unavailable' },
+                    { status: 503 }
+                )
+            )
+        );
+
+        const user = userEvent.setup();
+        const { store } = renderWithProviders(<LoginPage />);
+
+        await user.click(screen.getByRole('button', { name: 'Log In' }));
+
+        await waitFor(() => {
+            expect(store.getState().auth.user?.id).toBe(1);
+            expect(
+                screen.queryByText('Please check your username and password.')
+            ).not.toBeInTheDocument();
+        });
+    });
+
+});

@@ -1,0 +1,24 @@
+.availability {
+    margin-top: 30px;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.availability_in-stock {
+    color: var(--badge-color-in);
+    background-color: var(--badge-bg-in);
+}
+
+.availability_low-stock {
+    color: var(--badge-color-low);
+    background-color: var(--badge-bg-low);
+}
+
+.availability_out-of-stock {
+    color: var(--badge-color-out);
+    background-color: var(--badge-bg-out);
+}

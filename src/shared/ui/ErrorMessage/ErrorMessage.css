@@ -1,0 +1,17 @@
+.error-message {
+    width: 100%;
+    min-height: 120px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: var(--badge-color-out);
+    text-align: center;
+}
+
+.error-message__retry {
+    width: auto;
+    padding-inline: 24px;
+}

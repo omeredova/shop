@@ -1,0 +1,39 @@
+.profile-route {
+    margin: 50px;
+}
+
+.profile-page {
+    color: var(--product-descr);
+    padding: 20px;
+    min-height: 70vh;
+    background-color: var(--product-background);
+    box-shadow: var(--product-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .profile-route {
+        margin: 20px 10px;
+    }
+}
+
+.profile-page__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-page__name {
+    font-size: 24px;
+}
+
+.profile-page__gender {
+    opacity: .8;
+}
+
+.profile-page__email {
+    margin-top: 10px;
+}

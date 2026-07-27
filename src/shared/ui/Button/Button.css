@@ -1,0 +1,38 @@
+.button {
+    width: 40px;
+    height: 40px;
+    background-color: var(--header-color);
+    border: none;
+    border-radius: var(--radius-btn);
+    box-shadow: var(--product-shadow);
+    color: var(--header-txt);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.product__button{
+    background-color: var(--btn-background);
+    color: var(--header-color);
+}
+
+.product__button_minus {
+    visibility: hidden;
+}
+
+.product__button_minus_visible {
+    visibility: visible;
+}
+
+.auth__button {
+    display: block;
+    margin: 30px auto;
+    width: 100px;
+    font-size: 18px;
+}
+
+.cart_button {
+    width: 200px;
+}
