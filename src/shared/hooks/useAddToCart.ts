@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addProduct, rollbackAddedProduct } from '@/app/store';
+import { addProduct, rollbackAddedProduct, setCartData } from '@/app/store';
 import { useAddCartMutation, useUpdateCartMutation } from '@/pages/CartPage/api/cartApi';
 import type { ProductResponse } from '@/pages/ProductsPage/types';
 import { useAppDispatch } from './useAppDispatch';
@@ -31,7 +31,7 @@ export const useAddToCart = () => {
             ({ id }) => id === product.id
         );
         const quantity = (cartProduct?.quantity ?? 0) + 1;
-        const hasExistingCart = cart.id !== null && cart.products.length > 0;
+        const hasExistingCart = cart.id !== null;
         const products = cartProduct
             ? cart.products.map(({ id, quantity: currentQuantity }) => ({
                 id,
@@ -52,10 +52,12 @@ export const useAddToCart = () => {
                     products: [{ id: product.id, quantity }],
                 }).unwrap();
             } else {
-                await addCart({
+                const createdCart = await addCart({
                     userId: user.id,
                     products,
                 }).unwrap();
+
+                dispatch(setCartData(createdCart));
             }
         } catch {
             dispatch(rollbackAddedProduct(product));
