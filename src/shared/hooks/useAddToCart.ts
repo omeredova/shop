@@ -5,12 +5,12 @@ import { useAddCartMutation, useUpdateCartMutation } from '@/pages/CartPage/api/
 import type { ProductResponse } from '@/pages/ProductsPage/types';
 import { useAppDispatch } from './useAppDispatch';
 import { useAppSelector } from './useAppSelector';
+import { enqueueCartMutation } from './cartMutationQueue';
 
 export const useAddToCart = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.auth.user);
-    const cart = useAppSelector((state) => state.cart);
     const pendingProductIds = useRef(new Set<number>());
     const [addCart] = useAddCartMutation();
     const [updateCart] = useUpdateCartMutation();
@@ -27,46 +27,58 @@ export const useAddToCart = () => {
 
         pendingProductIds.current.add(product.id);
 
-        const cartProduct = cart.products.find(
-            ({ id }) => id === product.id
-        );
-        const quantity = (cartProduct?.quantity ?? 0) + 1;
-        const hasExistingCart = cart.id !== null;
-        const products = cartProduct
-            ? cart.products.map(({ id, quantity: currentQuantity }) => ({
-                id,
-                quantity: id === product.id ? quantity : currentQuantity,
-            }))
-            : [
-                ...cart.products.map(({ id, quantity }) => ({ id, quantity })),
-                { id: product.id, quantity: 1 },
-            ];
-
-        dispatch(addProduct(product));
-
         try {
-            if (hasExistingCart && cart.id !== null) {
-                await updateCart({
-                    cartId: cart.id,
-                    userId: user.id,
-                    products: [{ id: product.id, quantity }],
-                }).unwrap();
-            } else {
-                const createdCart = await addCart({
-                    userId: user.id,
-                    products,
-                }).unwrap();
+            await enqueueCartMutation(async () => {
+                const currentCart = dispatch(
+                    (_dispatch, getState) => getState().cart
+                );
+                const cartProduct = currentCart.products.find(
+                    ({ id }) => id === product.id
+                );
 
-                dispatch(setCartData(createdCart));
-            }
-        } catch {
-            dispatch(rollbackAddedProduct(product));
+                const quantity = (cartProduct?.quantity ?? 0) + 1;
+                const products = cartProduct
+                    ? currentCart.products.map(
+                        ({ id, quantity: currentQuantity }) => ({
+                            id,
+                            quantity: id === product.id
+                                ? quantity
+                                : currentQuantity,
+                        })
+                    )
+                    : [
+                        ...currentCart.products.map(
+                            ({ id, quantity }) => ({ id, quantity })
+                        ),
+                        { id: product.id, quantity: 1 },
+                    ];
+
+                dispatch(addProduct(product));
+
+                try {
+                    if (currentCart.id !== null) {
+                        await updateCart({
+                            cartId: currentCart.id,
+                            userId: user.id,
+                            products: [{ id: product.id, quantity }],
+                        }).unwrap();
+                    } else {
+                        const createdCart = await addCart({
+                            userId: user.id,
+                            products,
+                        }).unwrap();
+
+                        dispatch(setCartData(createdCart));
+                    }
+                } catch {
+                    dispatch(rollbackAddedProduct(product));
+                }
+            });
         } finally {
             pendingProductIds.current.delete(product.id);
         }
     }, [
         addCart,
-        cart,
         dispatch,
         navigate,
         updateCart,

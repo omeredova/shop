@@ -24,6 +24,14 @@ const product: ProductResponse = {
     rating: 4.5,
 };
 
+const secondProduct: ProductResponse = {
+    id: 2,
+    title: 'Second product',
+    price: 7.5,
+    thumbnail: 'second-product.png',
+    rating: 4,
+};
+
 const createdCart: CartResponse = {
     id: 51,
     products: [{
@@ -47,6 +55,50 @@ const AddProductButton = () => {
             Add product
         </button>
     );
+};
+
+const AddDifferentProductsButtons = () => {
+    const addToCart = useAddToCart();
+
+    return (
+        <>
+            <button type="button" onClick={() => void addToCart(product)}>
+                Add first product
+            </button>
+            <button
+                type="button"
+                onClick={() => void addToCart(secondProduct)}
+            >
+                Add second product
+            </button>
+        </>
+    );
+};
+
+const createStore = () => {
+    const store = configureStore({
+        reducer: {
+            api: baseApi.reducer,
+            auth: authReducer,
+            cart: cartReducer,
+        },
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware().concat(baseApi.middleware),
+    });
+
+    store.dispatch(setCredentials({
+        id: 1,
+        username: 'test-user',
+        email: 'test@example.com',
+        firstName: 'Test',
+        lastName: 'User',
+        gender: 'female',
+        image: 'image.png',
+        accessToken: 'access-token',
+        refreshToken: 'refresh-token',
+    }));
+
+    return store;
 };
 
 describe('useAddToCart', () => {
@@ -74,27 +126,7 @@ describe('useAddToCart', () => {
             })
         );
 
-        const store = configureStore({
-            reducer: {
-                api: baseApi.reducer,
-                auth: authReducer,
-                cart: cartReducer,
-            },
-            middleware: (getDefaultMiddleware) =>
-                getDefaultMiddleware().concat(baseApi.middleware),
-        });
-
-        store.dispatch(setCredentials({
-            id: 1,
-            username: 'test-user',
-            email: 'test@example.com',
-            firstName: 'Test',
-            lastName: 'User',
-            gender: 'female',
-            image: 'image.png',
-            accessToken: 'access-token',
-            refreshToken: 'refresh-token',
-        }));
+        const store = createStore();
 
         render(
             <Provider store={store}>
@@ -123,4 +155,49 @@ describe('useAddToCart', () => {
         expect(createRequests).toBe(1);
         expect(store.getState().cart.products[0]?.quantity).toBe(2);
     });
+
+    it('serializes additions made before the first cart is created', async () => {
+        let createRequests = 0;
+        let updateRequests = 0;
+
+        server.use(
+            http.post('https://dummyjson.com/carts/add', () => {
+                createRequests += 1;
+                return HttpResponse.json(createdCart);
+            }),
+            http.put('https://dummyjson.com/carts/51', () => {
+                updateRequests += 1;
+                return HttpResponse.json(createdCart);
+            })
+        );
+
+        const store = createStore();
+
+        render(
+            <Provider store={store}>
+                <MemoryRouter>
+                    <AddDifferentProductsButtons />
+                </MemoryRouter>
+            </Provider>
+        );
+
+        const user = userEvent.setup();
+        await user.click(
+            screen.getByRole('button', { name: 'Add first product' })
+        );
+        await user.click(
+            screen.getByRole('button', { name: 'Add second product' })
+        );
+
+        await waitFor(() => {
+            expect(store.getState().cart.products).toHaveLength(2);
+        });
+
+        expect(createRequests).toBe(1);
+        expect(updateRequests).toBe(1);
+        expect(
+            store.getState().cart.products.map(({ id }) => id)
+        ).toEqual([1, 2]);
+    });
+
 });

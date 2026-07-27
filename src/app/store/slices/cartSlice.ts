@@ -69,6 +69,9 @@ export const cartSlice = createSlice({
             state.totalProducts = action.payload.totalProducts;
             state.totalQuantity = action.payload.totalQuantity;
         },
+        resetCart() {
+            return initialState;
+        },
         addProduct(state, action: PayloadAction<ProductResponse>) {
             return getCartWithAddedProduct(state, action.payload);
         },
@@ -141,6 +144,7 @@ export const {
     removeProduct,
     rollbackAddedProduct,
     rollbackRemovedProduct,
+    resetCart,
     setCartData,
 } = cartSlice.actions;
 export default cartSlice.reducer;

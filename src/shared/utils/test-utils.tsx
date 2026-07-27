@@ -4,13 +4,14 @@ import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { baseApi } from '@/shared';
-import { authReducer } from '@/app/store';
+import { authReducer, cartReducer } from '@/app/store';
 
 export const setupStore = () => {
     return configureStore({
         reducer: {
             api: baseApi.reducer,
             auth: authReducer,
+            cart: cartReducer,
         },
 
         middleware: (getDefaultMiddleware) =>
