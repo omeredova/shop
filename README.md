@@ -90,3 +90,9 @@ npm test           # Run tests
 npm run lint       # Check code with ESLint
 npm run type-check # Check TypeScript types
 ```
+
+## Deployment
+
+The application is deployed on Vercel:
+
+[Open the deployed application](https://shop-two-theta.vercel.app/products)
