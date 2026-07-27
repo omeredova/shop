@@ -94,4 +94,28 @@ describe('LoginPage integration', () => {
         });
     });
 
+    test('keeps a successful login when the cart cannot be loaded', async () => {
+        server.use(
+            http.get(
+                'https://dummyjson.com/carts/user/1',
+                () => HttpResponse.json(
+                    { message: 'Cart service unavailable' },
+                    { status: 503 }
+                )
+            )
+        );
+
+        const user = userEvent.setup();
+        const { store } = renderWithProviders(<LoginPage />);
+
+        await user.click(screen.getByRole('button', { name: 'Log In' }));
+
+        await waitFor(() => {
+            expect(store.getState().auth.user?.id).toBe(1);
+            expect(
+                screen.queryByText('Please check your username and password.')
+            ).not.toBeInTheDocument();
+        });
+    });
+
 });

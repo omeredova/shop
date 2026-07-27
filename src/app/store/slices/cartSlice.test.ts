@@ -8,6 +8,7 @@ import cartReducer, {
     removeProduct,
     rollbackAddedProduct,
     rollbackRemovedProduct,
+    resetCart,
     setCartData,
 } from './cartSlice';
 
@@ -110,6 +111,26 @@ describe('cartSlice', () => {
         const state = cartReducer(undefined, removeProduct(999));
 
         expect(state).toEqual({
+            id: null,
+            products: [],
+            total: 0,
+            userId: 0,
+            totalProducts: 0,
+            totalQuantity: 0,
+        });
+    });
+
+    it('resets cart data', () => {
+        const populatedState = cartReducer(undefined, setCartData({
+            id: 51,
+            products: [cartProduct],
+            total: 12.5,
+            userId: 1,
+            totalProducts: 1,
+            totalQuantity: 1,
+        }));
+
+        expect(cartReducer(populatedState, resetCart())).toEqual({
             id: null,
             products: [],
             total: 0,

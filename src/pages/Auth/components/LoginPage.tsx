@@ -1,4 +1,4 @@
-import { setCartData, setCredentials } from '@/app/store';
+import { setCartData, setCredentials, resetCart } from '@/app/store';
 import { useLazyGetCartByUserQuery } from '@/pages/CartPage';
 import { useAppDispatch } from '@/shared';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -32,11 +32,16 @@ export const LoginPage = () => {
         try {
             const data = await login(values).unwrap();
             dispatch(setCredentials(data));
+            dispatch(resetCart());
 
-            const cart = await getCartByUser(data.id).unwrap();
+            try {
+                const cart = await getCartByUser(data.id).unwrap();
 
-            if (cart) {
-                dispatch(setCartData(cart))
+                if (cart) {
+                    dispatch(setCartData(cart))
+                }
+            } catch (error) {
+                console.error('Failed to load the cart.', error);
             }
 
             navigate(locationState?.from ?? '/products', {
@@ -77,7 +82,7 @@ export const LoginPage = () => {
             transferLinkText='Sign Up'
             transferLinkPath='/account/register'
             onSubmit={handleLogin}
-            error={loginState.isError || cartState.isError}
+            error={loginState.isError}
             errorMessage="Please check your username and password."
             successMessage={
                 registrationSuccess

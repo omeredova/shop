@@ -4,6 +4,7 @@ export {
     default as cartReducer,
     getCartWithAddedProduct,
     removeProduct,
+    resetCart,
     rollbackAddedProduct,
     rollbackRemovedProduct,
     setCartData,
