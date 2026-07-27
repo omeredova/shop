@@ -39,13 +39,14 @@ export const ProductsPage = () => {
         refetch,
     } = useGetProductsQuery(filters);
     
-    const productsData = products?.products.map(({id, thumbnail, title, price, rating}: ProductResponse) => (
+    const productsData = products?.products.map(({id, thumbnail, title, price, rating}: ProductResponse, index) => (
         <ProductCard
             thumbnail={thumbnail}
             title={title}
             price={price}
             id={id}
             rating={rating}
+            priority={index < 4}
             key={id}
         />
     ))
@@ -57,6 +58,7 @@ export const ProductsPage = () => {
 
     return(
         <section className='products-page'>
+            <h1 className="visually-hidden">Products</h1>
             <div className="products-page__categories">
                 {areCategoriesLoading && <Loader text="Loading categories..." />}
                 {areCategoriesError && (

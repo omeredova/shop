@@ -6,18 +6,18 @@ const common = require('./webpack.common.cjs');
 module.exports = merge(common, {
     mode: 'production',
 
+    devServer: {
+        historyApiFallback: true,
+        compress: true,
+    },
+
     module: {
         rules: [
             {
-                test: /\.module\.css$/,
+                test: /\.css$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                        },
-                    },
+                    'css-loader',
                 ],
             },
         ],
@@ -26,6 +26,14 @@ module.exports = merge(common, {
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
+            chunkFilename: '[name].[contenthash].css',
         }),
     ],
+
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+        runtimeChunk: 'single',
+    },
 });

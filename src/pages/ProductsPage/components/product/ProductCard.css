@@ -8,6 +8,8 @@
     overflow: hidden;
     box-shadow: var(--product-shadow);
     font-size: 16px;
+    content-visibility: auto;
+    contain-intrinsic-size: 360px;
 }
 
 .product__cover-wrap {

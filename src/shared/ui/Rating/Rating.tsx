@@ -9,9 +9,9 @@ interface RatingProps {
 export const Rating = ({rating, className = ''}: RatingProps) => {
 
     return (
-        <div className={className}>
+        <div className={className} role="img" aria-label={`Rating: ${rating ?? 'not rated'} out of 5`}>
             <span>{rating}</span>
-            <StarIcon/>
+            <span aria-hidden="true"><StarIcon/></span>
         </div>
     )
 
