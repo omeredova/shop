@@ -25,8 +25,17 @@ export interface AuthFormProps {
     transferLinkPath: string;
     initialValues?: LoginRequest;
     error?: boolean;
+    errorMessage?: string | undefined;
+    successMessage?: string | undefined;
     isLoading?: boolean;
-    onSubmit: (values: LoginRequest) => void;
+    onSubmit: (values: LoginRequest) => void | Promise<void>;
+}
+
+export interface RegistrationRequest {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
 }
 
 export interface LoginResponse {

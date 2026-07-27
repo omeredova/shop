@@ -1,10 +1,19 @@
 import { setCartData, setCredentials } from '@/app/store';
 import { useLazyGetCartByUserQuery } from '@/pages/CartPage';
 import { useAppDispatch } from '@/shared';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthForm } from '../AuthForm';
 import { useLoginMutation } from '../api/authApi';
 import type { LoginRequest } from '../types/auth.types';
+
+interface LoginLocationState {
+    from?: {
+        pathname: string;
+        search?: string;
+        hash?: string;
+    };
+    registrationSuccess?: boolean;
+}
 
 export const LoginPage = () => {
 
@@ -13,6 +22,11 @@ export const LoginPage = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+    const locationState = location.state as LoginLocationState | null;
+    const registrationSuccess = Boolean(
+        locationState?.registrationSuccess
+    );
 
     const handleLogin = async (values: LoginRequest) => {
         try {
@@ -20,12 +34,14 @@ export const LoginPage = () => {
             dispatch(setCredentials(data));
 
             const cart = await getCartByUser(data.id).unwrap();
-            // console.log('cart', cart)
+
             if (cart) {
                 dispatch(setCartData(cart))
             }
 
-            navigate('/products');
+            navigate(locationState?.from ?? '/products', {
+                replace: true,
+            });
 
         } catch (error) {
             console.error(error)
@@ -62,6 +78,12 @@ export const LoginPage = () => {
             transferLinkPath='/account/register'
             onSubmit={handleLogin}
             error={loginState.isError || cartState.isError}
+            errorMessage="Please check your username and password."
+            successMessage={
+                registrationSuccess
+                    ? 'Registration completed.'
+                    : undefined
+            }
             isLoading={loginState.isLoading || cartState.isFetching}
         />
     );

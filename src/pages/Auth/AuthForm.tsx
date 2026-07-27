@@ -16,6 +16,8 @@ export const AuthForm = ({
     onSubmit,
     initialValues,
     error,
+    errorMessage,
+    successMessage,
     isLoading = false,
 }: AuthFormProps) => {
 
@@ -44,11 +46,7 @@ export const AuthForm = ({
                     </h3>
 
                     <div className='auth__rules-subheader'>
-                        {
-                            error
-                                ? 'Please check your username and password'
-                                : subtitle
-                        }
+                        {subtitle}
                     </div>
                 </div>
 
@@ -66,6 +64,8 @@ export const AuthForm = ({
                                 placeholder={field.placeholder}
                                 className={`form__input ${error ? 'form__input-error' : ''}`}
                                 value={values[field.name] ?? ''}
+                                required
+                                aria-invalid={error || undefined}
                                 onChange={(event) =>
                                     setValues({
                                         ...values,
@@ -78,7 +78,15 @@ export const AuthForm = ({
                 </div>
 
                 {error && (
-                    <ErrorMessage message="Please check your username and password." />
+                    <ErrorMessage
+                        message={errorMessage ?? 'Something went wrong. Please try again.'}
+                    />
+                )}
+
+                {successMessage && (
+                    <p className="auth__success" role="status">
+                        {successMessage}
+                    </p>
                 )}
 
                 <Button

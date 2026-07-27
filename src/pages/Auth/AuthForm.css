@@ -68,7 +68,13 @@
 }
 
 .form__input-error {
-    border-color: red;
+    border-color: var(--error);
+}
+
+.auth__success {
+    margin: 20px 30px 0;
+    color: var(--success);
+    text-align: center;
 }
 
 .auth__transfer {
