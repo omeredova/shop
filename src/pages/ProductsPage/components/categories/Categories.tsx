@@ -33,6 +33,7 @@ export const Categories = ( {categories}: CategoriesProps ) => {
             </div>
             <select 
                 className="categories__dropdown"
+                aria-label="Product category"
                 value={category ?? ''}
                 onChange={(e) => setFilter('category', e.target.value)}
             >

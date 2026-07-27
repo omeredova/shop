@@ -1,6 +1,6 @@
 import './SearchForm.css';
 import SearchIcon from '../../assets/icons/search.svg';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ChangeEvent, SyntheticEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
@@ -15,7 +15,7 @@ export const SearchForm = () => {
     const [ value, setValue ] = useState(isProductsPage ? search : '');
     const debouncedValue = useDebouncedValue(value, search ? 400 : 0);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         setValue(isProductsPage ? search : '');
     }, [isProductsPage, search]);
 
@@ -43,7 +43,7 @@ export const SearchForm = () => {
     return (
         <form className='search' role='search' onSubmit={handleSubmit}>
             <div className="search__field">
-                <span className="search__icon"><SearchIcon/></span>
+                <span className="search__icon" aria-hidden="true"><SearchIcon/></span>
                 <input
                     className='search__input'
                     type='search'

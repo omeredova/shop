@@ -36,7 +36,7 @@
 
 .search__input:focus {
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--route-color) 35%, transparent);
 }
 
 .search__input::-webkit-search-cancel-button {

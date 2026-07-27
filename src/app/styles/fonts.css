@@ -16,7 +16,7 @@
 
 @font-face {
     font-family: 'SF UI Display';
-    src: url('../../shared/assets/fonts//SFUIText-Bold.woff2') format('woff2');
+    src: url('../../shared/assets/fonts/SFUIText-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;

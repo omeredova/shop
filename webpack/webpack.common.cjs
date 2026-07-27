@@ -6,7 +6,8 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: 'bundle.js',
+        filename: '[name].[contenthash].js',
+        chunkFilename: '[name].[contenthash].js',
         publicPath: '/',
         clean: true,
     },
@@ -28,13 +29,6 @@ module.exports = {
             {
                 test: /\.(woff2?|ttf|otf)$/i,
                 type: 'asset/resource',
-            },
-            {
-                test: /\.css$/i,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                ],
             },
             {
                 test: /\.svg$/i,

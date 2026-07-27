@@ -4,16 +4,20 @@ import { Button, Rating } from '@/shared/ui';
 import type { ProductResponse } from '../../types';
 import { useAddToCart, useAppSelector, useRemoveFromCart, formatNumber } from '@/shared';
 
-export const ProductCard = (props: ProductResponse) => {
+interface ProductCardProps extends ProductResponse {
+    priority?: boolean;
+}
 
-    const { title, price, thumbnail, rating, id } = props
+export const ProductCard = (props: ProductCardProps) => {
+
+    const { priority = false, ...product } = props;
+    const { title, price, thumbnail, rating, id } = product;
     const user = useAppSelector((state) => state.auth.user);
-    const cart = useAppSelector((state) => state.cart);
+    const quantity = useAppSelector(
+        (state) => state.cart.products.find((product) => product.id === id)?.quantity ?? 0
+    );
     const addToCart = useAddToCart();
     const removeFromCart = useRemoveFromCart();
-    const quantity = cart.products.find(
-        (product) => product.id === id
-    )?.quantity ?? 0;
 
     const isInUserCart = Boolean(user && quantity > 0);
 
@@ -22,7 +26,16 @@ export const ProductCard = (props: ProductResponse) => {
             <Link to={`${id}`}>
                 <div className="product__cover-wrap">
                     <div className="product__cover">
-                        <img className='product__img' src={thumbnail} alt={`photo of ${title}`} />
+                        <img
+                            className='product__img'
+                            src={thumbnail}
+                            alt={title}
+                            width="240"
+                            height="240"
+                            loading={priority ? 'eager' : 'lazy'}
+                            decoding="async"
+                            fetchPriority={priority ? 'high' : 'auto'}
+                        />
                     </div>
                     <Rating rating={rating} className='product__rating'/>
                 </div>
@@ -35,7 +48,8 @@ export const ProductCard = (props: ProductResponse) => {
                         className={`product__button product__button_minus ${
                             isInUserCart ? 'product__button_minus_visible' : ''
                         }`}
-                        onClick={() => void removeFromCart(props)}
+                        onClick={() => void removeFromCart(product)}
+                        aria-label={`Remove ${title} from cart`}
                     >
                         -
                     </Button>
@@ -46,7 +60,8 @@ export const ProductCard = (props: ProductResponse) => {
                     </div>
                     <Button
                         className='product__button product__button_add'
-                        onClick={() => void addToCart(props)}
+                        onClick={() => void addToCart(product)}
+                        aria-label={`Add ${title} to cart`}
                     >
                         +
                     </Button>
