@@ -1,14 +1,21 @@
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { CartIcon, LogoIcon, ProfileIcon } from '@/shared/assets/icons';
+import {
+    CartIcon,
+    LogoIcon,
+    LogoutIcon,
+    ProfileIcon,
+} from '@/shared/assets/icons';
 import { SearchForm } from '@/shared/ui';
-import { useProductsFilter, useAppSelector } from '@/shared';
+import { useProductsFilter, useAppSelector, useAppDispatch } from '@/shared';
+import { logout } from '@/app/store';
 
 export const Header = () => {
 
     const { resetFilters } = useProductsFilter();
     const user = useAppSelector(state => state.auth.user);
     const productCount = useAppSelector(state => state.cart.totalQuantity);
+    const dispatch = useAppDispatch();
 
     return(
         <header className="header">
@@ -28,6 +35,14 @@ export const Header = () => {
                 </div>
                 <Link className="header__icon" to={user ? '/profile' : '/account/login'} aria-label="Profile">
                     <span aria-hidden="true"><ProfileIcon/></span>
+                </Link>
+                <Link
+                    className="header__icon"
+                    to="/account/login"
+                    onClick={() => dispatch(logout())}
+                    aria-label="Log out"
+                >
+                    <span aria-hidden="true"><LogoutIcon /></span>
                 </Link>
             </div>
         </header>

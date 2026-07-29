@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { ProductCartResponse, ProductResponse } from '@/pages/ProductsPage';
+import { logout } from './authSlice';
 
 export interface CartState {
     id: number | null;
@@ -136,6 +137,9 @@ export const cartSlice = createSlice({
             state.totalProducts = state.products.length;
             state.totalQuantity += 1;
         }
+    },
+    extraReducers:(builder) => {
+        builder.addCase(logout, () => initialState)
     }
 })
 
