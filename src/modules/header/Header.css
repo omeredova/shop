@@ -21,12 +21,12 @@
     gap: 20px;
 }
 
-.header__basket {
+.header__icon {
     display: flex;
     align-items: center;
     gap: 4px;
-    font-weight: bold;
-    font-size: 10px;
+    color: var(--header-txt);
+    font-size: 20px;
 }
 
 @media (max-width: 600px) {
