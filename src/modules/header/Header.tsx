@@ -27,12 +27,10 @@ export const Header = () => {
             </div>
             
             <div className="header__right">
-                <div className="header__basket">
-                    <Link className="header__icon" to={user ? '/cart' : '/account/login'} aria-label="Cart">
-                        <span aria-hidden="true"><CartIcon /></span>
-                    </Link>
-                    {productCount}
-                </div>
+                <Link className="header__icon" to={user ? '/cart' : '/account/login'} aria-label="Cart">
+                    <span aria-hidden="true"><CartIcon /></span>
+                    <span className="header__count">{productCount}</span>
+                </Link>
                 <Link className="header__icon" to={user ? '/profile' : '/account/login'} aria-label="Profile">
                     <span aria-hidden="true"><ProfileIcon/></span>
                 </Link>
