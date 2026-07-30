@@ -1,8 +1,8 @@
 import './CartItem.css';
 import { Link } from 'react-router-dom';
-import { Button } from '@/shared/ui';
+import { QuantityControl } from '@/shared/ui';
 import type { ProductCartResponse } from '@/pages/ProductsPage';
-import { useAddToCart, useRemoveFromCart, formatNumber } from '@/shared';
+import { useAddToCart, useRemoveFromCart, useSetCartQuantity, formatNumber } from '@/shared';
 
 interface CartProductProps {
     product: ProductCartResponse;
@@ -12,6 +12,7 @@ export const CartItem = ({ product }: CartProductProps) => {
 
     const addToCart = useAddToCart();
     const removeFromCart = useRemoveFromCart();
+    const setCartQuantity = useSetCartQuantity();
 
     return (
         <tr className="cart-item">
@@ -32,22 +33,17 @@ export const CartItem = ({ product }: CartProductProps) => {
             </td>
             <td data-label="Price"> {formatNumber(product.price)} €</td>
             <td data-label="Quantity">
-                <div className="cart-product__btns">
-                    <Button 
-                        className="cart-page__button"
-                        onClick={() => void removeFromCart(product)}
-                    >
-                        -
-                    </Button>
-                    <div className="cart-product__count">
-                        {product.quantity}
-                    </div>
-                    <Button className="cart-page__button"
-                        onClick={() => void addToCart(product)}
-                    >
-                        +
-                    </Button>
-                </div>
+                <QuantityControl
+                    className="cart-product__btns"
+                    quantity={product.quantity}
+                    onQuantityChange={(nextQuantity) =>
+                        void setCartQuantity(product, nextQuantity)
+                    }
+                    onDecrement={() => void removeFromCart(product)}
+                    onIncrement={() => void addToCart(product)}
+                    decrementLabel={`Remove ${product.title} from cart`}
+                    incrementLabel={`Add ${product.title} to cart`}
+                />
             </td>
             <td data-label="Total">{formatNumber(product.total)} €</td>
         </tr>

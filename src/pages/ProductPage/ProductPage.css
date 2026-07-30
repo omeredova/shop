@@ -55,12 +55,6 @@
     opacity: .8;
 }
 
-.product-page__purchase {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
 .product-page__descr-title {
     font-size: 18px;
     opacity: .6;   
@@ -138,7 +132,4 @@
         line-height: 1.5;
     }
 
-    .product-page__purchase {
-        gap: 8px;
-    }
 }
