@@ -61,17 +61,7 @@
 .product__purchase {
     margin-top: auto;
     padding-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.product__count {
-    visibility: hidden;
-}
-
-.product__count_visible {
-    visibility: visible;
+    align-self: center;
 }
 
 @media (max-width: 600px) {

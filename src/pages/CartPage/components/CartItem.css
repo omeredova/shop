@@ -19,10 +19,7 @@
 }
 
 .cart-product__btns {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
+    margin: 0 auto;
 }
 
 @media (max-width: 768px) {
@@ -42,7 +39,7 @@
     }
 
     .cart-product__btns {
-        justify-content: flex-end;
+        margin-right: 0;
     }
 
 }

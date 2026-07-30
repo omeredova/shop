@@ -1,9 +1,9 @@
 import './ProductPage.css';
 import { useParams } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { Rating, AvailabilityBadge, Button, ErrorMessage, Loader, Breadcrumb } from '@/shared/ui';
+import { Rating, AvailabilityBadge, ErrorMessage, Loader, Breadcrumb, QuantityControl } from '@/shared/ui';
 import { useGetProductQuery } from './api/productApi';
-import { useAddToCart, useAppSelector, useRemoveFromCart, formatNumber } from '@/shared';
+import { useAddToCart, useAppSelector, useRemoveFromCart, useSetCartQuantity, formatNumber } from '@/shared';
 
 export const ProductPage = () => {
     const { id } = useParams();
@@ -17,6 +17,7 @@ export const ProductPage = () => {
     const cart = useAppSelector((state) => state.cart);
     const addToCart = useAddToCart();
     const removeFromCart = useRemoveFromCart();
+    const setCartQuantity = useSetCartQuantity();
     const quantity = cart.products.find(
         (cartProduct) => cartProduct.id === product?.id
     )?.quantity ?? 0;
@@ -69,29 +70,16 @@ export const ProductPage = () => {
                         {formatNumber(product.price)} €
                     </div>
                 </div>
-                <div className="product-page__purchase">
-                    <Button
-                        className='product-page__button'
-                        onClick={() => {
-                            void removeFromCart(product);
-                        }}
-                        aria-label={`Remove ${product.title} from cart`}
-                    >
-                        -
-                    </Button>
-                    <div className='product-page__count'>
-                        {quantity}
-                    </div>
-                    <Button
-                        className='product-page__button'
-                        onClick={() => {
-                            void addToCart(product);
-                        }}
-                        aria-label={`Add ${product.title} to cart`}
-                    >
-                        +
-                    </Button>
-                </div>
+                <QuantityControl
+                    quantity={quantity}
+                    onQuantityChange={(nextQuantity) =>
+                        void setCartQuantity(product, nextQuantity)
+                    }
+                    onDecrement={() => void removeFromCart(product)}
+                    onIncrement={() => void addToCart(product)}
+                    decrementLabel={`Remove ${product.title} from cart`}
+                    incrementLabel={`Add ${product.title} to cart`}
+                />
                 <div className="product-page__descr">
                     <h3 className='product-page__descr-title'>Description:</h3>
                     <div className='product-page__description'>{product.description}</div>

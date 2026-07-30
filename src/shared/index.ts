@@ -5,6 +5,7 @@ export { useAppDispatch } from './hooks/useAppDispatch';
 export { useAppSelector } from './hooks/useAppSelector';
 export { useAddToCart } from './hooks/useAddToCart';
 export { useRemoveFromCart } from './hooks/useRemoveFromCart';
+export { useSetCartQuantity } from './hooks/useSetCartQuantity';
 
 export { handlers } from './utils/handlers';
 export { formatNumber } from './utils/formatNumber';

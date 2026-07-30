@@ -1,0 +1,89 @@
+.quantity-control {
+    display: grid;
+    grid-template-columns: 40px 64px 40px;
+    align-items: center;
+    gap: 8px;
+    width: 160px;
+}
+
+.quantity-control__button {
+    width: 40px;
+    flex: none;
+    transition:
+        background-color .2s ease,
+        box-shadow .2s ease,
+        opacity .2s ease,
+        transform .1s ease;
+}
+
+.quantity-control__button:not(:disabled):hover {
+    background-color: var(--route-color);
+}
+
+.quantity-control__button:not(:disabled):active {
+    box-shadow: none;
+    transform: scale(.96);
+}
+
+.quantity-control__button:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: .35;
+    visibility: hidden;
+}
+
+.quantity-control__input {
+    box-sizing: border-box;
+    width: 64px;
+    height: 40px;
+    padding: 0 4px;
+    border: 1px solid var(--header-color);
+    border-radius: var(--radius-btn);
+    background-color: var(--product-background);
+    color: var(--product-descr);
+    font-size: 16px;
+    text-align: center;
+    appearance: textfield;
+    transition:
+        background-color .2s ease,
+        border-color .2s ease;
+}
+
+.quantity-control__input:hover {
+    background-color: var(--btn-background);
+}
+
+.quantity-control__input:focus {
+    border-color: transparent;
+    outline: none;
+    background-color: var(--btn-background);
+}
+
+.quantity-control__input_hidden {
+    visibility: hidden;
+}
+
+.quantity-control__input::-webkit-inner-spin-button,
+.quantity-control__input::-webkit-outer-spin-button {
+    margin: 0;
+    appearance: none;
+}
+
+@media (max-width: 600px) {
+    .quantity-control {
+        grid-template-columns: 34px 52px 34px;
+        gap: 6px;
+        width: 132px;
+    }
+
+    .quantity-control__button {
+        width: 34px;
+        height: 34px;
+        font-size: 20px;
+    }
+
+    .quantity-control__input {
+        width: 52px;
+        height: 34px;
+    }
+}
