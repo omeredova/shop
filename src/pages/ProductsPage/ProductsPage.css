@@ -12,6 +12,12 @@
     opacity: 50%;
 }
 
+.products-page__categories {
+    max-height: var(--products-container-height, none);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
 .products-page__count-total {
     color: var(--route-color);
 }
@@ -48,6 +54,8 @@
     .products-page__categories {
         display: flex;
         justify-content: center;
+        max-height: none;
+        overflow: visible;
     }
     .products-page {
         grid-template-columns: 1fr;
