@@ -1,6 +1,6 @@
 import './ProductsPage.css';
 import { useProductsFilter } from '@/shared';
-import { useMemo } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useGetProductsQuery, useGetCategoriesQuery } from './api/productsApi';
 import { Categories } from './components/categories/Categories';
 import { ProductCard } from './components/product/ProductCard';
@@ -15,6 +15,11 @@ export interface ProductsFilters {
 }
 
 export const ProductsPage = () => {
+
+    const categoriesContainerRef = useRef<HTMLDivElement>(null);
+    const productsContentRef = useRef<HTMLDivElement>(null);
+    const productsContainerRef = useRef<HTMLDivElement>(null);
+    const previousFiltersRef = useRef<string | null>(null);
 
     const { category, search, limit, skip, setFilter } = useProductsFilter();
     const {
@@ -55,11 +60,48 @@ export const ProductsPage = () => {
     const currentSkip = Number(skip) || 0;
     const currentLimit = Number(limit);
     const total = products?.total ?? 0;
+    const filtersKey = `${category}\u0000${search}\u0000${limit}\u0000${skip}`;
+
+    useLayoutEffect(() => {
+        const categoriesContainer = categoriesContainerRef.current;
+        const productsContainer = productsContentRef.current;
+
+        if (!categoriesContainer || !productsContainer) return;
+
+        const syncCategoriesHeight = () => {
+            categoriesContainer.style.setProperty(
+                '--products-container-height',
+                `${productsContainer.getBoundingClientRect().height}px`
+            );
+        };
+
+        syncCategoriesHeight();
+
+        const resizeObserver = new ResizeObserver(syncCategoriesHeight);
+        resizeObserver.observe(productsContainer);
+
+        return () => resizeObserver.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (previousFiltersRef.current === null) {
+            previousFiltersRef.current = filtersKey;
+            return;
+        }
+
+        if (previousFiltersRef.current === filtersKey) return;
+
+        previousFiltersRef.current = filtersKey;
+        productsContainerRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+    }, [filtersKey]);
 
     return(
         <section className='products-page'>
             <h1 className="visually-hidden">Products</h1>
-            <div className="products-page__categories">
+            <div className="products-page__categories" ref={categoriesContainerRef}>
                 {areCategoriesLoading && <Loader text="Loading categories..." />}
                 {areCategoriesError && (
                     <ErrorMessage
@@ -72,7 +114,7 @@ export const ProductsPage = () => {
                 )}
             </div>
 
-            <div>
+            <div className="products-page__content" ref={productsContentRef}>
                 <div className="products-page__toolbar">
                     <div className="products-page__count">
                         {search
@@ -108,7 +150,11 @@ export const ProductsPage = () => {
                 )}
 
                 {!isLoading && !isError && (
-                    <div className='products-page__container' aria-busy={isFetching}>
+                    <div
+                        className='products-page__container'
+                        aria-busy={isFetching}
+                        ref={productsContainerRef}
+                    >
                         {productsData}
                     </div>
                 )}
